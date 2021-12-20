@@ -97,7 +97,7 @@ export default (itemSchema, resourceName) => {
           let all = cloneDeep(state.all)
           all.push(item);
           state.all = all;
-        } else console.log('add_duplicate_item.user', item)
+        } else console.log('duplicate when add item', item)
       },
       UPDATE(state, item) {
         item = inspector.sanitize(itemSchema.sanitize, item).data;
@@ -107,16 +107,22 @@ export default (itemSchema, resourceName) => {
           let all = cloneDeep(state.all)
           all[itemIndex] = item;
           state.all = all;
-        } else console.log('item_not_found.user', item)
+        } else console.log('item not found to update', item)
+      },
+      UPSERT(state, item) {
+        let existedItem = state.all.filter(i => i.id === item.id);
+        let all = cloneDeep(state.all)
+        if (existedItem.length) {
+          let itemIndex = state.all.indexOf(existedItem[0]);
+          all[itemIndex] = {...existedItem[0], ...item};
+        } else all.push(item);
+        state.all = all;
       },
       DELETE(state, id) {
         let existedItem = state.all.filter(i => i.id === id);
         if (existedItem.length) {
-          let itemIndex = state.all.indexOf(existedItem[0]);
-          let all = cloneDeep(state.all)
-          delete all[itemIndex];
-          state.all = all
-        }
+          state.all = state.all.filter(i => i.id !== id)
+        } else console.log('id not found to delete', id)
       },
       SELECT(state, id) {
         state.selectedId = id
@@ -173,6 +179,16 @@ export default (itemSchema, resourceName) => {
           path: '',
         });
         return res
+      },
+      getById: async ({commit}, requestData) => {
+        let params = requestData.params; //to provide with & withCount
+        // http://domain.com/api/resource_name/1?with=relation1;relation2&withcount=relation3;relation4
+        let res = await axios.get('/' + resourceName + '/' + requestData.id, {params: params});
+        let item = res.status === 200 && res.data ? res.data : null;
+        if (!item) return null;
+        //find item in list state and update it
+        await commit('UPSERT', item);
+        return item;
       },
       create: async ({commit}, item) => {
         let res = await axios.post('/' + resourceName, item);
