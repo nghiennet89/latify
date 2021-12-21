@@ -160,7 +160,7 @@ class ApiBaseController extends Controller
 
         try {
             if ($this->validator) $this->validator->with($input)->passesOrFail(ValidatorInterface::RULE_UPDATE);
-
+            unset($input['id']);
             $item = $this->repository->update($input, $id);
 
             return ResponseBuilder::SuccessUpdate($item);
