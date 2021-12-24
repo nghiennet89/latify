@@ -12,7 +12,7 @@
   </v-card>
 </template>
 <script>
-import {mapActions, mapGetters} from 'vuex'
+import {mapActions} from 'vuex'
 
 export default {
   name: 'Update_ENTITY_TITLE_',

@@ -118,7 +118,7 @@ class InitEntity extends Command
 
     private function editEntity($entityName)
     {
-        $entityNameTitle = ucfirst($entityName);
+        $entityNameTitle = str_replace('_','', ucwords($entityName, '_'));
 
         //Open App\Entities\{$entityName} to edit extend
         $entityFile = base_path('app/Entities/' . $entityNameTitle . '.php');
@@ -186,9 +186,9 @@ class InitEntity extends Command
         $validate = $this->validateResource();
         if (!$validate) return false;
         echo 'Entity name: ' . $entityName . "\n";
-        $entityNameTitle = ucfirst($entityName);
+        $entityNameTitle = str_replace('_','', ucwords($entityName, '_'));
         $pluralEntityName = Str::plural($entityName);
-        $pluralEntityNameTitle = ucfirst($pluralEntityName);
+        $pluralEntityNameTitle = str_replace('_','', ucwords($pluralEntityName, '_'));
 
         $class = 'App\\Entities\\' . $entityNameTitle;
         if (!class_exists($class)) {
@@ -203,7 +203,7 @@ class InitEntity extends Command
         $entityParamsSearch = "\r\n";
         $entityTblHeaders = "\r\n";
         foreach ($fillable as $attributeName) {
-            $attributeTitleName = ucfirst($attributeName);
+            $attributeTitleName = str_replace('_','', ucwords($attributeName, '_'));
             $entityFieldsInput .= '      <v-col cols="6"><v-text-field dense outlined label="' . $attributeTitleName . '" v-model="item.' . $attributeName . '"/></v-col>' . "\r\n";
             $entityTblHeaders .= "        {
           text: '" . $attributeTitleName . "',
@@ -211,7 +211,7 @@ class InitEntity extends Command
         }," . "\r\n";
         }
         foreach ($this->listSearchableFields as $attributeName => $searchType) {
-            $attributeTitleName = ucfirst($attributeName);
+            $attributeTitleName = str_replace('_','', ucwords($attributeName, '_'));
             $entityUiSearch .= '        <v-text-field dense outlined @keyup.enter="doSearch" class="mr-2" label="Search ' . $attributeTitleName . '"
                       v-model="searchFields.' . $attributeName . '.value"/>' . "\r\n";
             $entityParamsSearch .= '        ' . $attributeName . ": {

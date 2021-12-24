@@ -3,11 +3,8 @@
 namespace App\Repositories;
 
 use App\Criteria\BaseCriteria;
-use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\ScopeRepository;
 use App\Entities\Scope;
-use App\Validators\ScopeValidator;
+use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
  * Class ScopesRepositoryEloquent.

@@ -55,8 +55,9 @@ class ApiBaseController extends Controller
      * @param $createRequest
      * @param $updateRequest
      */
-    public function __construct(RepositoryInterface $repository, LaravelValidator $validator, $createRequest, $updateRequest)
+    public function __construct(RepositoryInterface $repository, LaravelValidator $validator = null, $createRequest = null, $updateRequest = null)
     {
+        if (!$validator) $validator = app('App\Validators\DefaultValidator');
         $this->repository = $repository;
         $this->validator = $validator;
         $this->createRequest = $createRequest;
