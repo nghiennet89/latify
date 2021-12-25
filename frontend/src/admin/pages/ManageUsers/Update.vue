@@ -9,7 +9,8 @@
         <v-text-field dense outlined label="Email" type="email" v-model="item.email"/>
       </v-col>
       <v-col cols="6">
-        <v-select v-model="item.role_id" :items="roles" item-text="name" item-value="id" label="Role" outlined dense></v-select>
+        <v-select v-model="item.role_id" :items="roles" item-text="name" item-value="id" label="Role" outlined
+                  dense></v-select>
       </v-col>
     </v-row>
     <v-card-actions class="mx-0 pa-0">
@@ -45,8 +46,15 @@ export default {
     }
   },
   mounted() {
-    this.getAllRoles();
-    this.item = {...this.selectedItem};
+    if (this.roles.length < 1) this.getAllRoles();
+  },
+  watch: {
+    selectedItem: {
+      handler() {
+        if (this.selectedItem) this.item = this.selectedItem;
+      },
+      deep: true
+    }
   }
 }
 </script>

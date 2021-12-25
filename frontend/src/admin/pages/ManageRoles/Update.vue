@@ -37,8 +37,13 @@ export default {
       });
     }
   },
-  mounted() {
-    this.item = {...this.selectedItem};
+  watch: {
+    selectedItem: {
+      handler() {
+        if(this.selectedItem) this.item = this.selectedItem;
+      },
+      deep: true
+    }
   }
 }
 </script>
