@@ -22,7 +22,8 @@
         "prettus/l5-repository": "^2.7",
         "pusher/pusher-php-server": "^7.0",
         "tightenco/ziggy": "^1.0",
-        "venturecraft/revisionable": "1.*"
+        "venturecraft/revisionable": "1.*",
+      "ext-json": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

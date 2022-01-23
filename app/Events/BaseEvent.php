@@ -44,4 +44,8 @@ class BaseEvent implements ShouldBroadcast, ShouldQueue
             'data' => $this->data,
         ];
     }
+
+    public function getData() {
+        return $this->data;
+    }
 }

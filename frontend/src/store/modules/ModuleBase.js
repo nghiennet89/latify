@@ -2,8 +2,11 @@ import inspector from 'schema-inspector';
 import axios from 'axios';
 import cloneDeep from 'clone-deep';
 
-const buildQuery = (params) => {
-  let options = params.options
+export const buildQuery = (params) => {
+  let options = params.options || {
+    itemsPerPage: 10,
+    page: 1
+  }
   let query = {
     limit: options.itemsPerPage,
     page: options.page,
@@ -13,9 +16,9 @@ const buildQuery = (params) => {
     query.orderBy = options.sortBy.join(';');
     query.sortedBy = options.sortDesc.join(';').replace(/false/ig, 'asc').replace(/true/ig, 'desc');
   }
-
+  
   if (params.searchWith) query.with = params.searchWith
-
+  
   let search = params.searchFields ? params.searchFields : {}
   let searchValues = [];
   let searchTypes = [];
@@ -54,11 +57,13 @@ export default (itemSchema, resourceName) => {
         path: '',
       }
     },
-
+    
     getters: {
       all: state => state.all,
       getById: state => id => {
-        return state.all.filter(i => i.id === id);
+        let item = state.all.filter(i => i.id === id);
+        if (item.length) return item[0];
+        return null
       },
       getByFields: state => fields => {
         return state.all.filter(i => {
@@ -79,7 +84,7 @@ export default (itemSchema, resourceName) => {
       },
       pagination: state => state.pagination,
     },
-
+    
     mutations: {
       INIT_STATE(state, items) {
         state = items;
@@ -118,6 +123,17 @@ export default (itemSchema, resourceName) => {
         } else all.push(item);
         state.all = all;
       },
+      UPSERT_MULTI(state, items) {
+        let all = cloneDeep(state.all)
+        items.forEach(item => {
+          let existedItem = state.all.filter(i => i.id === item.id);
+          if (existedItem.length) {
+            let itemIndex = state.all.indexOf(existedItem[0]);
+            all[itemIndex] = {...existedItem[0], ...item};
+          } else all.push(item);
+        })
+        state.all = all;
+      },
       DELETE(state, id) {
         let existedItem = state.all.filter(i => i.id === id);
         if (existedItem.length) {
@@ -133,7 +149,7 @@ export default (itemSchema, resourceName) => {
         state.searchParams = {}
       }
     },
-
+    
     actions: {
       get: async ({commit}, searchParams) => {
         let params = buildQuery(searchParams);

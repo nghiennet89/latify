@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\NotificationRepository;
+use App\Repositories\NotificationRepositoryEloquent;
 use App\Repositories\RoleRepository;
 use App\Repositories\RoleRepositoryEloquent;
 use App\Repositories\RoleScopesRepository;
@@ -38,6 +40,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(SocialAccountRepository::class, SocialAccountRepositoryEloquent::class);
         $this->app->bind(RoleScopesRepository::class, RoleScopesRepositoryEloquent::class);
         $this->app->bind(ScopeRepository::class, ScopeRepositoryEloquent::class);
+        $this->app->bind(NotificationRepository::class, NotificationRepositoryEloquent::class);
         //:end-bindings:
     }
 }

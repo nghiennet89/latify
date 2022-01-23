@@ -18,13 +18,13 @@ const system = {
     },
     notices: {}
   },
-
+  
   getters: {
     breadcrumb: state => state.BreadCrumb,
     appLoading: state => state.appLoading,
     notices: state => Object.values(state.notices),
   },
-
+  
   mutations: {
     TOGGLE_APP_LOADING: (state, payload) => {
       state.appLoading = payload;
@@ -33,6 +33,7 @@ const system = {
       state.BreadCrumb = payload;
     },
     FIRE_REQUEST: (state, payload) => {
+      console.log('payload:', payload);
       if (state.saveRequest) state.Requests.listConfig.push(payload);
       let silentRequest = payload && payload.params ? payload.params.silent : false;
       if (!silentRequest) state.Requests.sent += 1;
@@ -57,7 +58,7 @@ const system = {
       state.notices = notices
     },
   },
-
+  
   actions: {
     setBreadcrumb: async ({commit}, payload) => {
       return await commit('SET_BREADCRUMB', payload)

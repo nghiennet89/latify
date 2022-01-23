@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Events\BaseEvent;
+use App\Listeners\BaseEventListener;
 use App\Listeners\EntityCreatedListener;
 use App\Listeners\EntityCreatingListener;
 use App\Listeners\EntityDeletedListener;
@@ -47,6 +49,9 @@ class EventServiceProvider extends ServiceProvider
         RepositoryEntityUpdating::class => [
             EntityUpdatingListener::class,
         ],
+        BaseEvent::class => [
+            BaseEventListener::class
+        ]
     ];
 
     /**

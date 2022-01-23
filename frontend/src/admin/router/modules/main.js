@@ -40,5 +40,14 @@ export default [
       affix: true,
     },
   },
+  {
+    path: '/notifications',
+    component: () => import('@/admin/pages/ManageNotifications'),
+    name: 'ManageNotifications',
+    meta: {
+      noCache: true,
+      affix: true,
+    },
+  },
   ...listResources
 ]

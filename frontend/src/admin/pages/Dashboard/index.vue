@@ -10,6 +10,12 @@
         <v-col class="col-auto">
           <v-btn color="info" outlined @click="testNotification"> Test Notification</v-btn>
         </v-col>
+        <v-col class="col-auto">
+          <v-btn color="info" outlined @click="getAllNotification"> Get Notification</v-btn>
+        </v-col>
+        <v-col class="col-auto">
+          <v-btn color="info" outlined @click="getUnreadNotification"> Get Unread Notification</v-btn>
+        </v-col>
       </v-row>
       <v-card-text style="white-space: pre-line" class="align-content-start">{{ actionContent }}</v-card-text>
     </v-container>
@@ -19,6 +25,7 @@
 <script>
 import GithubCorner from '@/admin/pages/Dashboard/GithubCorner.vue';
 import axios from 'axios';
+import {mapActions} from "vuex";
 
 export default {
   name: 'Dashboard',
@@ -31,6 +38,11 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      getAllNotification: 'notification/all',
+      getUnreadNotification: 'notification/getUnread',
+      markNotificationAsRead: 'notification/markAsRead',
+    }),
     testEvent() {
       this.actionContent += 'Start test event ...' + "\n";
       axios.get('user/sample-event', {params: {silent: true}}).then(() => {
@@ -42,7 +54,7 @@ export default {
       axios.get('user/sample-notification', {params: {silent: true}}).then(() => {
         this.actionContent += 'Finished call to server to push notification' + "\n";
       })
-    }
+    },
   }
 };
 </script>

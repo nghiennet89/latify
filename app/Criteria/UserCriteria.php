@@ -21,7 +21,7 @@ class UserCriteria extends BaseCriteria
             //use custom search for some fields
             $this->addSearch($model, $search);
             //and rebuild search to continue use default search for other fields
-            $this->rebuildSearch($search);
+            $model = $this->rebuildSearch($model, $search);
         }
         $paramOrderBy = config('repository.criteria.params.orderBy', 'orderBy');
         $paramSortedBy = config('repository.criteria.params.sortedBy', 'sortedBy');

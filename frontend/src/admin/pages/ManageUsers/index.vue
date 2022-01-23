@@ -259,6 +259,9 @@ export default {
       },
       deep: true
     },
+  },
+  created() {
+    console.log('roleById:', this.roleById(1));
   }
 }
 </script>

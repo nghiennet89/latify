@@ -33,7 +33,7 @@
       </v-list-item>
     </v-list>
     <v-divider/>
-    <v-subheader>Show All</v-subheader>
+    <v-subheader @click="showAllNotify" style="cursor: pointer">Show All</v-subheader>
   </v-menu>
 </template>
 
@@ -49,7 +49,7 @@ export default {
   }),
   computed: {
     ...mapGetters({
-      serverNotifications: 'serverNotifications',
+      serverNotifications: 'notification/all',
       authenticatedUser: 'user/authenticatedUser'
     }),
     authenticatedUserId() {
@@ -71,7 +71,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      gotServerNotification: 'gotServerNotification'
+      gotServerNotification: 'notification/gotServerNotification',
+      countUnread: 'notification/countUnread',
     }),
     registerEcho() {
       this.echo = new Echo({
@@ -116,7 +117,7 @@ export default {
         fullData: data,
         unread: true
       })
-      this.noticeInfo(this.$t('notification.new'))
+      this.noticeInfo(this.$t('event.new'))
     },
     handleNotification(notification) {
       this.gotServerNotification({

@@ -58,5 +58,8 @@ export default {
   },
   notification: {
     new: 'You have new notification'
-  }
+  },
+  event: {
+    new: 'Have new event'
+  },
 }

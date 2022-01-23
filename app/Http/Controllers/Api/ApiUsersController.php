@@ -193,7 +193,7 @@ class ApiUsersController extends ApiBaseController
     public function sampleNotification()
     {
         $user = Auth::user();
-        return $user->notify(new BaseBroadcast('Test BaseBroadcast'));
+        return $user->notify(new BaseBroadcast('Test BaseBroadcast ' . $user->name));
     }
 
     public function sampleEvent()

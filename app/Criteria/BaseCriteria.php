@@ -50,6 +50,14 @@ class BaseCriteria extends RequestCriteria implements CriteriaInterface
                 $this->request->request->set($withFieldCount, $this->parserRelateWith($withCount));
 
         }
+
+        //parse search and rebuild it, to allow search whereNull, whereNotNull
+        $paramSearch = config('repository.criteria.params.search', 'search');
+        $search = $this->request->get($paramSearch, null);
+        if ($search) {
+            $search = $this->parserSearchData($search);
+            $model = $this->rebuildSearch($model, $search);
+        }
         return parent::apply($model, $repository);
     }
 
@@ -57,6 +65,7 @@ class BaseCriteria extends RequestCriteria implements CriteriaInterface
      * Apply criteria in query repository
      *
      * @param $with
+     *
      * @return string
      */
     private function parserRelateWith($with)
@@ -72,16 +81,30 @@ class BaseCriteria extends RequestCriteria implements CriteriaInterface
         return implode(';', $with);
     }
 
-    protected function rebuildSearch($searchArr)
+    protected function rebuildSearch($model, $searchArr)
     {
         $paramSearch = config('repository.criteria.params.search', 'search');
         $searchStr = null;
         if (count($searchArr) > 0) {
             $searchStr = [];
-            foreach ($searchArr as $field => $value) array_push($searchStr, $field . ':' . $value);
+            foreach ($searchArr as $field => $value)
+                switch ($value) {
+                    case 'null':
+                        $model = $model->whereNull($field);
+                        break;
+                    case 'not-null':
+                    case 'not_null':
+                    case 'notnull':
+                    case 'not null':
+                        $model = $model->whereNotNull($field);
+                        break;
+                    default:
+                        array_push($searchStr, $field . ':' . $value);
+                }
             $searchStr = implode(';', $searchStr);
         }
         if ($this->request->query->get($paramSearch)) $this->request->query->set($paramSearch, $searchStr);
         if ($this->request->request->get($paramSearch)) $this->request->request->set($paramSearch, $searchStr);
+        return $model;
     }
 }

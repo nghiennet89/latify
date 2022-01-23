@@ -34,9 +34,6 @@ export default new Vuex.Store({
     SERVER_TIME(state, payload) {
       state.ServerTime = payload
     },
-    ADD_SERVER_NOTIFICATION(state, payload) {
-      state.serverNotifications.push(payload)
-    }
   },
   actions: {
     getServerTime: async ({commit}) => {
@@ -61,11 +58,9 @@ export default new Vuex.Store({
       res.forEach((r, i) => r && r.data ? (r.data.data ? res[i] = r.data.data : res[i] = r.data) : {});
       return res
     },
-    gotServerNotification: async ({commit}, payload) => {
-      commit('ADD_SERVER_NOTIFICATION', payload)
-    },
+    
   },
   getters: {
-    serverNotifications: state => state.serverNotifications,
+  
   },
 });

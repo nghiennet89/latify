@@ -16,7 +16,7 @@ class Controller extends BaseController
 
     public function index(Request $request)
     {
-        //TODO : Need detect google bot user agent for run SSR
+        //TODO : Need detect google bot (or bing bot) user agent for run SSR
         $userAgent = $request->server('HTTP_USER_AGENT');
         if (!env('SSR_ENABLE') || $userAgent == 'SSR-SERVER') return view('index');
         $uri = $request->getRequestUri();
