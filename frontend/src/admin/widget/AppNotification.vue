@@ -67,6 +67,18 @@ export default {
     },
     notifyUnreadCount() {
       return this.serverNotifications.length > 0 ? this.serverNotifications.length : ''
+    },
+    listServerNotifications() {
+      return this.serverNotifications.map(notification => {
+        return {
+          icon: 'mdi-message',
+          iconClass: 'blue white--text',
+          title: notification.data.title ? notification.data.title : notification.data,
+          subtitle: notification.created_at,
+          fullData: notification,
+          unread: true
+        }
+      });
     }
   },
   methods: {
@@ -120,14 +132,15 @@ export default {
       this.noticeInfo(this.$t('event.new'))
     },
     handleNotification(notification) {
-      this.gotServerNotification({
-        icon: 'mdi-message',
-        iconClass: 'blue white--text',
-        title: notification.data.title ? notification.data.title : notification.data,
-        subtitle: notification.created_at,
-        fullData: notification,
-        unread: true
-      })
+      // this.gotServerNotification({
+      //   icon: 'mdi-message',
+      //   iconClass: 'blue white--text',
+      //   title: notification.data.title ? notification.data.title : notification.data,
+      //   subtitle: notification.created_at,
+      //   fullData: notification,
+      //   unread: true
+      // })
+      //TODO call action get notifications on server
       this.noticeInfo(this.$t('notification.new'))
     },
     onExplainNotificationsBox() {
