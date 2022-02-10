@@ -6,7 +6,7 @@ const requireResources = require.context('@/admin/router/modules/resources', tru
 let listResources = [];
 for (const file of requireResources.keys()) {
   const resourceConfig = requireResources(file)
-  listResources.push(resourceConfig.default || resourceConfig);
+  listResources = listResources.concat(resourceConfig.default || resourceConfig);
 }
 
 export default [
