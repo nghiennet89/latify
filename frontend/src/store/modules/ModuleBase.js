@@ -16,9 +16,10 @@ export const buildQuery = (params) => {
     query.orderBy = options.sortBy.join(';');
     query.sortedBy = options.sortDesc.join(';').replace(/false/ig, 'asc').replace(/true/ig, 'desc');
   }
-  
+
   if (params.searchWith) query.with = params.searchWith
-  
+  if (params.searchWithCount) query.withCount = params.searchWithCount
+
   let search = params.searchFields ? params.searchFields : {}
   let searchValues = [];
   let searchTypes = [];
@@ -57,7 +58,7 @@ export default (itemSchema, resourceName) => {
         path: '',
       }
     },
-    
+
     getters: {
       all: state => state.all,
       getById: state => id => {
@@ -84,7 +85,7 @@ export default (itemSchema, resourceName) => {
       },
       pagination: state => state.pagination,
     },
-    
+
     mutations: {
       INIT_STATE(state, items) {
         state = items;
@@ -149,7 +150,7 @@ export default (itemSchema, resourceName) => {
         state.searchParams = {}
       }
     },
-    
+
     actions: {
       get: async ({commit}, searchParams) => {
         let params = buildQuery(searchParams);
