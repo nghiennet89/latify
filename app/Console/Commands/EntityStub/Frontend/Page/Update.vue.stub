@@ -35,7 +35,8 @@ export default {
       handler() {
         if(this.selectedItem) this.item = this.selectedItem;
       },
-      deep: true
+      deep: true,
+      immediate: true
     }
   }
 }
