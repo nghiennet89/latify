@@ -16,8 +16,10 @@ export const buildQuery = (params) => {
     query.orderBy = options.sortBy.join(';');
     query.sortedBy = options.sortDesc.join(';').replace(/false/ig, 'asc').replace(/true/ig, 'desc');
   }
-  
+  if (params['with'] && !params.searchWith) params.searchWith = params['with'];
+  if (params.withCount && !params.searchWithCount) params.searchWithCount = params.withCount;
   if (params.searchWith) query.with = params.searchWith
+  if (params.searchWithCount) query.withCount = params.searchWithCount
   
   let search = params.searchFields ? params.searchFields : {}
   let searchValues = [];
@@ -26,6 +28,9 @@ export const buildQuery = (params) => {
     if (search[key].value && search[key].type) {
       searchValues.push(key + ':' + search[key].value)
       searchTypes.push(key + ':' + search[key].type)
+    } else {
+      searchValues.push(key + ':' + search[key])
+      searchTypes.push(key + ':=')
     }
   })
   if (searchValues.length && searchTypes.length) {
