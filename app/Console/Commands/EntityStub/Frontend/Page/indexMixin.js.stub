@@ -41,6 +41,7 @@ export default {
       return {
         options: this.tblOptions,
         searchWith: this.searchWith,
+        searchWithCount: this.searchWithCount,
         querySilent: this.querySilent
       }
     }

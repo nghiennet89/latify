@@ -41,15 +41,15 @@ export default {
       let params = buildQuery({
         searchFields: searchField,
       });
-      
+
       let res = await axios.get('/' + resourceName, {params: params});
       commit('UPSERT_MULTI', res.data.data);
       return res;
     },
+    // eslint-disable-next-line
     countUnread: async ({}) => {
       return await axios.get('/' + resourceName + '/count-unread');
     },
-    // eslint-disable-next-line
     markAsRead: async ({commit}, ids) => {
       let res = await axios.post('/' + resourceName + '/mark-as-read', {ids: ids}, {params: {silent: true}});
       if (res.data && !res.data.error) {

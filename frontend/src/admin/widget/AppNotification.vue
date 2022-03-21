@@ -132,6 +132,7 @@ export default {
       this.noticeInfo(this.$t('event.new'))
     },
     handleNotification(notification) {
+      console.log('notification:', notification)
       // this.gotServerNotification({
       //   icon: 'mdi-message',
       //   iconClass: 'blue white--text',
@@ -140,11 +141,14 @@ export default {
       //   fullData: notification,
       //   unread: true
       // })
-      //TODO call action get notifications on server
+      //TODO push notification to model store
       this.noticeInfo(this.$t('notification.new'))
     },
     onExplainNotificationsBox() {
 
+    },
+    showAllNotify() {
+      this.$router.push({name: 'ManageNotifications'})
     }
   },
   watch: {

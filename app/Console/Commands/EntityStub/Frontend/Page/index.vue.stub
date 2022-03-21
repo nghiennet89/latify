@@ -84,6 +84,7 @@ export default {
     return {
       searchFields: {_ENTITY_PARAMS_SEARCH_},
       searchWith: '',
+      searchWithCount: '',
       tblHeader: [
         {
           text: 'No',
