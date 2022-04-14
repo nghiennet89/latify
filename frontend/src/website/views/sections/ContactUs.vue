@@ -7,8 +7,8 @@
     >
       <v-container>
         <v-row justify="center">
-          <v-col cols="10">
-            <base-title :space="$vuetify.breakpoint.mdAndUp ? 0 : 4" title="DONATE FOR ME IF YOU LIKE THIS"/>
+          <v-col cols="10" style="overflow-x: auto">
+            <base-title :space="$vuetify.breakpoint.mdAndUp ? 0 : 4" title="DONATE ME IF YOU LIKE THIS"/>
 
             <base-body space="0">
               <span class="white--text">
