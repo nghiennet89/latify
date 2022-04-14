@@ -25,7 +25,7 @@ export const buildQuery = (params) => {
   let searchValues = [];
   let searchTypes = [];
   Object.keys(search).forEach(key => {
-    if (search[key].value && search[key].type) {
+    if (search[key].value !== '' && search[key].type) {
       searchValues.push(key + ':' + search[key].value)
       searchTypes.push(key + ':' + search[key].type)
     } else {
