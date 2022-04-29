@@ -1,6 +1,6 @@
 <template>
   <v-card tile :elevation="0" class="crud-box list-_PLURAL_ENTITY_">
-    <h1 class="mx-4">Manage _PLURAL_ENTITY_TITLE_</h1>
+    <h1 class="mx-4">Manage _PLURAL_ENTITY_TITLE_TEXT_</h1>
     <v-layout wrap class="px-4 pt-4">
       <div style="overflow: visible">
         <v-btn color="success" class="mr-2" @click="onClickNew">

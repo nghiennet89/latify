@@ -118,7 +118,7 @@ class InitEntity extends Command
 
     private function editEntity($entityName)
     {
-        $entityNameTitle = str_replace('_','', ucwords($entityName, '_'));
+        $entityNameTitle = str_replace('_', '', ucwords($entityName, '_'));
 
         //Open App\Entities\{$entityName} to edit extend
         $entityFile = base_path('app/Entities/' . $entityNameTitle . '.php');
@@ -186,9 +186,10 @@ class InitEntity extends Command
         $validate = $this->validateResource();
         if (!$validate) return false;
         echo 'Entity name: ' . $entityName . "\n";
-        $entityNameTitle = str_replace('_','', ucwords($entityName, '_'));
+        $entityNameTitle = str_replace('_', '', ucwords($entityName, '_'));
         $pluralEntityName = Str::plural($entityName);
-        $pluralEntityNameTitle = str_replace('_','', ucwords($pluralEntityName, '_'));
+        $pluralEntityNameTitle = str_replace('_', '', ucwords($pluralEntityName, '_'));
+        $pluralEntityNameTitleText = str_replace('_', ' ', ucwords($pluralEntityName, '_'));
 
         $class = 'App\\Entities\\' . $entityNameTitle;
         if (!class_exists($class)) {
@@ -203,7 +204,7 @@ class InitEntity extends Command
         $entityParamsSearch = "\r\n";
         $entityTblHeaders = "\r\n";
         foreach ($fillable as $attributeName) {
-            $attributeTitleName = str_replace('_','', ucwords($attributeName, '_'));
+            $attributeTitleName = str_replace('_', '', ucwords($attributeName, '_'));
             $entityFieldsInput .= '      <v-col cols="6"><v-text-field dense outlined label="' . $attributeTitleName . '" v-model="item.' . $attributeName . '"/></v-col>' . "\r\n";
             $entityTblHeaders .= "        {
           text: '" . $attributeTitleName . "',
@@ -211,7 +212,7 @@ class InitEntity extends Command
         }," . "\r\n";
         }
         foreach ($this->listSearchableFields as $attributeName => $searchType) {
-            $attributeTitleName = str_replace('_','', ucwords($attributeName, '_'));
+            $attributeTitleName = str_replace('_', '', ucwords($attributeName, '_'));
             $entityUiSearch .= '        <v-text-field dense outlined @keyup.enter="doSearch" class="mr-2" label="Search ' . $attributeTitleName . '"
                       v-model="searchFields.' . $attributeName . '.value"/>' . "\r\n";
             $entityParamsSearch .= '        ' . $attributeName . ": {
@@ -220,14 +221,15 @@ class InitEntity extends Command
         }," . "\r\n";
         }
         $arrListReplace = [
-            '_ENTITY_FIELDS_INPUT_'  => $entityFieldsInput,
-            '_ENTITY_UI_SEARCH_'     => $entityUiSearch,
-            '_ENTITY_PARAMS_SEARCH_' => $entityParamsSearch,
-            '_ENTITY_TBL_HEADERS_'   => $entityTblHeaders,
-            '_PLURAL_ENTITY_TITLE_'  => $pluralEntityNameTitle,
-            '_PLURAL_ENTITY_'        => $pluralEntityName,
-            '_ENTITY_TITLE_'         => $entityNameTitle,
-            '_ENTITY_'               => $entityName,
+            '_ENTITY_FIELDS_INPUT_'      => $entityFieldsInput,
+            '_ENTITY_UI_SEARCH_'         => $entityUiSearch,
+            '_ENTITY_PARAMS_SEARCH_'     => $entityParamsSearch,
+            '_ENTITY_TBL_HEADERS_'       => $entityTblHeaders,
+            '_PLURAL_ENTITY_TITLE_'      => $pluralEntityNameTitle,
+            '_PLURAL_ENTITY_TITLE_TEXT_' => $pluralEntityNameTitleText,
+            '_PLURAL_ENTITY_'            => $pluralEntityName,
+            '_ENTITY_TITLE_'             => $entityNameTitle,
+            '_ENTITY_'                   => $entityName,
         ];
         /* back-end */
 

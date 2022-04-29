@@ -17,7 +17,7 @@ export default {
     tblConfig: {
       footerProps: {
         showFirstLastPage: true,
-        'items-per-page-options': [10, 20, 50, 100, -1]
+        'items-per-page-options': [15, 25, 50, 100, -1]
       },
       showSelect: true,
       text: {

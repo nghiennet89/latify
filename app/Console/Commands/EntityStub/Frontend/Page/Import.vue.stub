@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title>Import _PLURAL_ENTITY_TITLE_</v-card-title>
+    <v-card-title>Import _PLURAL_ENTITY_TITLE_TEXT_</v-card-title>
     <v-file-input dense outlined label="File to import" show-size class="mx-4"
                   v-model="importFile"/>
     <v-card-actions>
