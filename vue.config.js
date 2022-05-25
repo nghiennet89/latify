@@ -59,7 +59,6 @@ module.exports = {
       return options
     });
     //override from node_modules/vue-cli-plugin-vuetify/util/helpers.js
-
     /*['vue-modules', 'vue', 'normal-modules', 'normal'].forEach(match => {
       for (let i = 0; i < 2; i++) {
         const boolean = Boolean(i)

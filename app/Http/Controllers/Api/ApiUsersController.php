@@ -17,6 +17,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Lcobucci\JWT\Configuration;
 
 class ApiUsersController extends ApiBaseController
 {
@@ -134,39 +135,29 @@ class ApiUsersController extends ApiBaseController
      */
     public function changePassword(UserChangePasswordRequest $request, $id)
     {
-        $newPw = $request->password;
-        $dataResponse = $this->userServices->changePw($newPw, $id);
+        $oldPassword = $request->input('old_password');
+        $newPassword = $request->input('password');
+        $dataResponse = $this->userServices->changePassword($newPassword, $id);
         if (!$dataResponse) return ResponseBuilder::FailUpdate();
         return ResponseBuilder::SuccessUpdate();
     }
 
-    public function addRoleByUserEmail(UserAddRoleRequest $request, UserRepository $userRepository)
+    /**
+     * @param \App\Http\Requests\Api\UserAddRoleRequest $request
+     * @param \App\Repositories\UserRepository          $userRepository
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function addRole(UserAddRoleRequest $request, UserRepository $userRepository)
     {
         $email = $request->user_email;
-        $roleId = $request->role_id;
-        $user = $userRepository->findByField('email', $email, '*');
-        if (!count($user)) return ResponseBuilder::FailUpdate();
-
-        $dataResponse = $this->userServices->addRoleForUser($roleId, $user->first()->id);
-        if (!$dataResponse) return ResponseBuilder::FailUpdate();
-
-        return ResponseBuilder::SuccessUpdate($dataResponse);
-    }
-
-    /**
-     * @param UserAddRoleRequest $request
-     * @param UserRepository     $userRepository
-     *
-     * @return JsonResponse
-     */
-    public function addRoleByUserId(UserAddRoleRequest $request, UserRepository $userRepository)
-    {
-        $roleId = $request->role_id;
         $userId = $request->user_id;
-        $user = $userRepository->find($userId);
-        if (!count($user)) return ResponseBuilder::FailUpdate();
+        $roleId = $request->role_id;
+        $user = $userRepository->findByField('email', $email, '*')->first();
+        if (!$user) $user = $userRepository->find($userId);
+        if (!$user) return ResponseBuilder::FailUpdate();
 
-        $dataResponse = $this->userServices->addRoleForUser($roleId, $user->first()->id);
+        $dataResponse = $this->userServices->addRoleForUser($roleId, $user->id);
         if (!$dataResponse) return ResponseBuilder::FailUpdate();
 
         return ResponseBuilder::SuccessUpdate($dataResponse);
@@ -190,12 +181,33 @@ class ApiUsersController extends ApiBaseController
         return parent::update($request, $id);
     }
 
+    public function createApiKey(Request $request)
+    {
+        $user = Auth::user();
+        if ($user->api_key) {
+            $tokenId = Configuration::forUnsecuredSigner()->parser()->parse($user->api_key)->claims()->get('jti');
+            $token = $user->tokens()->find($tokenId);
+            $token->revoke();
+        }
+        $scopes = $user->listScopes();
+        $user->api_key = $user->createToken('API-KEY-' . $user->id, $scopes)->accessToken;
+        $user->save();
+        $apiKey = $user->api_key;
+        return ResponseBuilder::SuccessCreate($apiKey);
+    }
+
+    /**
+     * @return mixed
+     */
     public function sampleNotification()
     {
         $user = Auth::user();
         return $user->notify(new BaseBroadcast('Test BaseBroadcast ' . $user->name));
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function sampleEvent()
     {
         event(new BaseEvent('Test BaseEvent'));

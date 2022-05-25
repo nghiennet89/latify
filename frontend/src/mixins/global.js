@@ -1,6 +1,15 @@
 import {mapActions} from 'vuex'
-
+import CONSTANTS from '@/config/constants'
 export default {
+  data: () => ({
+    CONSTANTS: CONSTANTS
+  }),
+  computed: {
+    user() {
+      if (this.$auth.user()) return this.$auth.user()
+      return {}
+    }
+  },
   methods: {
     ...mapActions({
       noticeInfo: 'system/noticeInfo',

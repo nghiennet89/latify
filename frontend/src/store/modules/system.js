@@ -73,7 +73,7 @@ const system = {
       let message = response && response.data ? response.data.message : null;
       if (!message) return;
       if (typeof message === 'object') message = Object.values(message).join("\n");
-      if (!response.config.params.silent) {
+      if (response.config.params && !response.config.params.silent) {
         if (response.status === 200) await dispatch('noticeSuccess', message);
         else await dispatch('noticeError', {message: message, errorCode: response.status});
       }

@@ -1,5 +1,6 @@
 import itemSchema from '@/store/modules/schemas/user.schema';
 import ModuleBase from "@/store/modules/ModuleBase";
+import axios from "axios";
 
 const resourceName = 'users'
 const base = new ModuleBase(itemSchema, resourceName);
@@ -23,6 +24,13 @@ export default {
     ...base.actions,
     setAuthenticatedUser: async ({commit}, payload) => {
       return commit('SET_AUTHENTICATED_USER', payload);
+    },
+    changePassword: async ({}, payload) => {
+      return await axios.post('/user/change-password/' + payload.id, payload);
+    },
+    createApiKey: async ({}) => {
+      let res = await axios.get('/user/create-api-key');
+      return res.data.data
     }
   }
 }

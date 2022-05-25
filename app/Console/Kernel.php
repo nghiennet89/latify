@@ -25,6 +25,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('database:backup')->dailyAt('00:00');
+        $schedule->command('passport:purge')->hourly();
     }
 
     /**

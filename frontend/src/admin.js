@@ -5,6 +5,7 @@ import '@/utils/registerServiceWorker';
 import Vue from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
+import axiosRetry from 'axios-retry';
 import VueToasted from 'vue-toasted';
 import VueCookies from 'vue-cookies';
 import VueAuth from '@websanova/vue-auth';
@@ -18,13 +19,13 @@ import adminApp from '@/admin/index';
 import router from '@/admin/router';
 import i18n from '@/admin/locale'; // Internationalization
 
-
 if (!window.VueComp) window.VueComp = {
   Others: [],
   Config: config
 }
 window.Pusher = require('pusher-js');
 window._ = require('lodash');
+axiosRetry(axios, {retries: 3});
 
 const adminEl = document.getElementById('admin');
 if (adminEl) {
@@ -32,15 +33,15 @@ if (adminEl) {
   window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
   Vue.use(VueAxios, window.axios)
   Vue.axios.defaults.baseURL = '/api';
-
+  
   Vue.use(VueToasted)
   Vue.use(VueCookies);
   Vue.mixin(GlobalMixin);
   Vue.config.productionTip = false;
-
+  
   Vue.router = router;
   Vue.use(VueAuth, config.auth().VueAuth);
-
+  
   window._VueAdminApp = new Vue({
     router,
     store,
@@ -48,7 +49,7 @@ if (adminEl) {
     vuetify,
     render: (h) => h(adminApp),
   }).$mount('#admin');
-
+  
   axios.interceptors.request.use(function (config) {
     window._VueAdminApp.$store.dispatch('system/fireRequest', config)
     return config;
@@ -56,7 +57,7 @@ if (adminEl) {
     window._VueAdminApp.$store.dispatch('system/addResponse', error.response)
     return Promise.reject(error);
   });
-
+  
   axios.interceptors.response.use(response => {
     window._VueAdminApp.$store.dispatch('system/addResponse', response)
     return response;

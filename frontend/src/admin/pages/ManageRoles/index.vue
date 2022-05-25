@@ -17,8 +17,6 @@
       <v-layout wrap style="max-width: calc(100% - 250px);">
         <v-text-field dense outlined @keyup.enter="doSearch" class="mr-2" label="Search Name"
                       v-model="searchFields.name.value"/>
-        <v-text-field dense outlined @keyup.enter="doSearch" class="mr-2" label="Search Group"
-                      v-model="searchFields.group.value"/>
       </v-layout>
       <v-btn color="primary" @click="doSearch">
         <v-icon>mdi-magnify</v-icon>
@@ -82,10 +80,6 @@ export default {
       dialogDetail: false,
       searchFields: {
         name: {
-          value: '',
-          type: 'like',
-        },
-        group: {
           value: '',
           type: 'like',
         },

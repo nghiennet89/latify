@@ -42,6 +42,6 @@ class AuthServiceProvider extends ServiceProvider
         Passport::setDefaultScope([]);
 
         Passport::routes();
-        //
+        Passport::personalAccessTokensExpireIn(now()->addYears(100));
     }
 }

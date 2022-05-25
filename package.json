@@ -13,6 +13,7 @@
         "@mdi/font": "^5.8.55",
         "@websanova/vue-auth": "^2.21.14-beta",
         "axios": "^0.21.1",
+        "axios-retry": "^3.2.5",
         "dotenv-expand": "^5.1.0",
         "file-saver": "^2.0.5",
         "jsonlint": "^1.6.3",

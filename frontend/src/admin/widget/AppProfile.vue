@@ -4,9 +4,7 @@
       <v-btn v-on="on" icon large text>
         <v-avatar size="36px">
           <img v-if="user.avatar" :src="user.avatar" alt="name">
-          <v-icon v-else class="blue--text" x-large>
-            mdi-account-circle
-          </v-icon>
+          <img v-else :src="require('~/img/avatars/(1).png')" alt="name">
         </v-avatar>
       </v-btn>
     </template>
@@ -15,9 +13,7 @@
         <v-list-item>
           <v-list-item-avatar>
             <img v-if="user.avatar" :src="user.avatar" alt="name">
-            <v-icon v-else class="blue--text" x-large>
-              mdi-account
-            </v-icon>
+            <img v-else :src="require('~/img/avatars/(1).png')" alt="name">
           </v-list-item-avatar>
 
           <v-list-item-content>

@@ -28,6 +28,7 @@ class UserChangePasswordRequest extends ApiBaseRequest
     public function rules()
     {
         return [
+            'old_password'  => 'required',
             'password'      => 'required|between:8,20|regex:/^.*(?=.{2,})(?=.*[a-zA-Z])(?=.*[0-9]).*$/',
             'password_conf' => 'required|min:8|same:password',
         ];
@@ -40,6 +41,7 @@ class UserChangePasswordRequest extends ApiBaseRequest
     public function messages()
     {
         return [
+            'old_password.required'  => trans('old password is required '),
             'password.required'      => trans('password is required '),
             'password_conf.required' => trans('password confirm is required'),
         ];

@@ -148,7 +148,7 @@ class UserServices
      *
      * @return mixed
      */
-    public function changePw($pw, $id)
+    public function changePassword($pw, $id)
     {
         DB::transaction(function () use ($pw, $id, &$returnUser) {
             $data = [

@@ -25,12 +25,12 @@ export const buildQuery = (params) => {
   let searchValues = [];
   let searchTypes = [];
   Object.keys(search).forEach(key => {
-    if (search[key].value !== '' && search[key].type) {
-      searchValues.push(key + ':' + search[key].value)
-      searchTypes.push(key + ':' + search[key].type)
-    } else {
+    if (typeof search[key] === 'string') {
       searchValues.push(key + ':' + search[key])
       searchTypes.push(key + ':=')
+    } else if (search[key].value !== '' && search[key].type) {
+      searchValues.push(key + ':' + search[key].value)
+      searchTypes.push(key + ':' + search[key].type)
     }
   })
   if (searchValues.length && searchTypes.length) {

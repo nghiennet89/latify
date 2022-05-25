@@ -47,6 +47,7 @@ class User extends BaseEntity
         'role_id',
         'email',
         'password',
+        'api_key',
     ];
 
     /**
