@@ -136,8 +136,12 @@ class ApiUsersController extends ApiBaseController
     public function changePassword(UserChangePasswordRequest $request, $id)
     {
         $oldPassword = $request->input('old_password');
+        //check if pasword is valid
+        $user = $this->repository->find($id);
+        if(!$user) return ResponseBuilder::Fail('User not found');
+        if(!Hash::check($oldPassword, $user->password))  return ResponseBuilder::Fail('Invalid password');
         $newPassword = $request->input('password');
-        $dataResponse = $this->userServices->changePassword($newPassword, $id);
+        $dataResponse = $this->userServices->changePassword($newPassword, $user->id);
         if (!$dataResponse) return ResponseBuilder::FailUpdate();
         return ResponseBuilder::SuccessUpdate();
     }
@@ -181,6 +185,11 @@ class ApiUsersController extends ApiBaseController
         return parent::update($request, $id);
     }
 
+    /**
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function createApiKey(Request $request)
     {
         $user = Auth::user();
