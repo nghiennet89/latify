@@ -4,7 +4,7 @@
     <v-app-bar v-if="navbarLogo" :dense="toolbarDense" class="align-center" style="background: rgba(128,128,128,0.35);">
       <v-toolbar-title style="display: inline-table;">
         <v-avatar size="32px" tile class="px-1">
-          <img alt="VVA" src="/webapp/img/icons/vuetify.svg" width="32">
+          <img alt="VVA" :src="require('~/img/icons/vuetify.svg')" width="32">
         </v-avatar>
       </v-toolbar-title>
       <v-toolbar-title style="width: 100%">

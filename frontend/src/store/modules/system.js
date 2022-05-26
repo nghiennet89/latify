@@ -33,19 +33,16 @@ const system = {
       state.BreadCrumb = payload;
     },
     FIRE_REQUEST: (state, payload) => {
-      console.log('payload:', payload);
       if (state.saveRequest) state.Requests.listConfig.push(payload);
       let silentRequest = payload && payload.params ? payload.params.silent : false;
       if (!silentRequest) state.Requests.sent += 1;
-      if (state.Requests.sent === state.Requests.received) state.appLoading = false
-      else state.appLoading = true
+      state.appLoading = state.Requests.sent !== state.Requests.received;
     },
     ADD_RESPONSE: (state, res) => {
       if (state.saveRequest) state.Requests.listResponse.push(res);
       let silentRequest = res && res.config && res.config.params ? res.config.params.silent : false;
       if (!silentRequest) state.Requests.received += 1;
-      if (state.Requests.sent === state.Requests.received) state.appLoading = false
-      else state.appLoading = true
+      state.appLoading = state.Requests.sent !== state.Requests.received;
     },
     ADD_NOTICE: (state, notice) => {
       let notices = cloneDeep(state.notices)

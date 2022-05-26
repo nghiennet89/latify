@@ -13,9 +13,11 @@
               <h1 class="text-center my-4 primary--text">{{ appTitle }}</h1>
             </div>
             <v-form>
-              <v-text-field @keyup.enter="login" v-model="user.username" :label="$t('login.email')" append-icon="mdi-account" autocomplete="username" name="email" required
+              <v-text-field @keyup.enter="login" v-model="user.username" :label="$t('login.email')" append-icon="mdi-account" autocomplete="username"
+                            name="email" required
                             type="email"/>
-              <v-text-field @keyup.enter="login" v-model="user.password" :label="$t('login.password')" append-icon="mdi-lock" autocomplete="current-password" name="password"
+              <v-text-field @keyup.enter="login" v-model="user.password" :label="$t('login.password')" append-icon="mdi-lock" autocomplete="current-password"
+                            name="password"
                             required type="password"/>
             </v-form>
           </v-card-text>
@@ -83,7 +85,7 @@ export default {
     appTitle: config.appName,
     loading: false,
     socialLogin: false,
-    user: {
+    userLogin: {
       username: 'admin@' + config.appUrl.replace('https://', '').replace('http://', ''),
       password: 'Admin@123',
       grant_type: "password",
@@ -99,7 +101,7 @@ export default {
     login() {
       this.$auth.login({
         data: {
-          ...this.user,
+          ...this.userLogin,
         },
         rememberMe: true,
         fetchUser: true,

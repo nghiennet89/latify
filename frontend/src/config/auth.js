@@ -24,6 +24,7 @@ module.exports = function () {
           
           let token = res.data ? res.data.access_token : null
           if (token) {
+            window.localStorage.setItem('default_auth_token', res.data.access_token)
             let expiresIn = parseInt(res.data.expired_in)
             VueCookies.set(window.location.hostname + '_access_token', res.data.access_token, new Date(new Date().getTime() + expiresIn))
             VueCookies.set(window.location.hostname + '_refresh_token', res.data.refresh_token, new Date(new Date().getTime() + expiresIn))

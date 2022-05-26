@@ -17,16 +17,16 @@ class InitEntity extends Command
 
     const FILE_LIST = [
         'BACKEND'      => [
-            'CONTROLLER'     => 'app/Console/Commands/EntityStub/Backend/ApiController.php.stub',
-            'REQUEST_CREATE' => 'app/Console/Commands/EntityStub/Backend/CreateRequest.php.stub',
-            'REQUEST_UPDATE' => 'app/Console/Commands/EntityStub/Backend/UpdateRequest.php.stub',
-            'ROUTER'         => 'app/Console/Commands/EntityStub/Backend/router.php.stub',
+            'CONTROLLER' => 'app/Console/Commands/EntityStub/Backend/ApiController.php.stub',
+//            'REQUEST_CREATE' => 'app/Console/Commands/EntityStub/Backend/CreateRequest.php.stub',
+//            'REQUEST_UPDATE' => 'app/Console/Commands/EntityStub/Backend/UpdateRequest.php.stub',
+            'ROUTER'     => 'app/Console/Commands/EntityStub/Backend/router.php.stub',
         ],
         'BACKEND_DES'  => [
-            'CONTROLLER'     => 'app/Http/Controllers/Api/Api_PLURAL_ENTITY_TITLE_Controller.php',
-            'REQUEST_CREATE' => 'app/Http/Requests/Api/_ENTITY_TITLE_CreateRequest.php',
-            'REQUEST_UPDATE' => 'app/Http/Requests/Api/_ENTITY_TITLE_UpdateRequest.php',
-            'ROUTER'         => 'routes/resources/_PLURAL_ENTITY_.php',
+            'CONTROLLER' => 'app/Http/Controllers/Api/Api_PLURAL_ENTITY_TITLE_Controller.php',
+//            'REQUEST_CREATE' => 'app/Http/Requests/Api/_ENTITY_TITLE_CreateRequest.php',
+//            'REQUEST_UPDATE' => 'app/Http/Requests/Api/_ENTITY_TITLE_UpdateRequest.php',
+            'ROUTER'     => 'routes/resources/_PLURAL_ENTITY_.php',
         ],
         'FRONTEND'     => [
             'PAGE_CREATE'  => 'app/Console/Commands/EntityStub/Frontend/Page/Create.vue.stub',

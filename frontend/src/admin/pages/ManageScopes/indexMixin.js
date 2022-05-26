@@ -69,7 +69,7 @@ export default {
         if (fileName) FileSaver.saveAs(res.data, fileName);
         else FileSaver.saveAs(res.data);
       }).catch(err => {
-        console.log(err.message)
+        console.log('Export fail: ',err.message)
       })
     },
     /**

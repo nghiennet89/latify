@@ -108,8 +108,7 @@ export default {
     async onClickRow($event, row) {
       this.expanded = [row.item];
       if (row.item.read_at) return;
-      let result = this.markAsRead([row.item.id]);
-      console.log(result);
+      this.markAsRead([row.item.id]);
     },
   }
 }

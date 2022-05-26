@@ -9,7 +9,7 @@
           </v-card-actions>
           <v-card-text>
             <div class="layout column align-center">
-              <img alt="App Logo" height="120" src="/webapp/img/icons/vuetify.svg" width="120">
+              <img alt="App Logo" height="120" :src="require('~/img/icons/vuetify.svg')" width="120">
               <h1 class="text-center my-4 primary--text">{{ appTitle }}</h1>
             </div>
             <v-form>

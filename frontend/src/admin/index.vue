@@ -2,7 +2,7 @@
   <v-app>
     <router-view ref="content"/>
     <div id="app-loading" :style="appLoading || initializing ? 'display: block;' : 'display: none;'">
-      <img class="indicator-icon" src="/webapp/img/loading_indicator.svg">
+      <img class="indicator-icon" :src="require('~/img/loading_indicator.svg')" alt="loading...">
     </div>
     <AdminNotice></AdminNotice>
   </v-app>
@@ -53,19 +53,15 @@ export default {
   },
   created() {
     this.watchUserAuth = this.$watch('_user', (newVal) => {
-      console.log('SET_AUTHENTICATED_USER', newVal)
       if (newVal && newVal.id && newVal.role_id) {
         this.setAuthenticatedUser(JSON.parse(JSON.stringify(newVal)))
         this.needUserMasterData = false
         this.loadUserMasterData().then(res => {
-          console.log("User's master data :", res)
           if (this.$route.name === 'Login') return this.$router.push({name: 'Dashboard'});
         })
       } else this.setAuthenticatedUser(null)
     });
-    this.loadMasterData().then(res => {
-      console.log("Master data :", res)
-    });
+    this.loadMasterData();
   },
   updated() {
     if (!this.initializing) return;
