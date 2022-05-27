@@ -70,7 +70,7 @@ module.exports = function () {
         method: 'POST',
         //enabled: !window.localStorage.getItem(window.location.hostname + '_personal_access_token') && !VueCookies.isKey(window.location.hostname + '_personal_access_token'),
         enabled: VueCookies.isKey(window.location.hostname + '_refresh_token'),
-        interval: 60, //minutes
+        interval: 15, //minutes
         data: {
           refresh_token: VueCookies.isKey(window.location.hostname + '_refresh_token') ? VueCookies.get(window.location.hostname + '_refresh_token') : 'no-token',
           grant_type: 'refresh_token',
