@@ -112,7 +112,7 @@ export default {
     },
   },
   mounted() {
-    if (this.$auth.token()) return this.$router.push({name: 'Dashboard'});
+    if (this.$auth.currentToken) return this.$router.push({name: 'Dashboard'});
     this.$auth.fetch();
   }
 };

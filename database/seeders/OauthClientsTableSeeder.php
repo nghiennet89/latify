@@ -20,8 +20,8 @@ class OauthClientsTableSeeder extends Seeder
         $oauth_clients = [
             [
                 'id'                     => 1,
-                'name'                   => 'API Password Grant Client',
-                'secret'                 => '45h4sD0vLqJP2S36FFvR9cHlYTl6h31zMfko2EOT',
+                'name'                   => 'API Personal Access Client',
+                'secret'                 => 'Ar7IaYao1s96AA1gT2kRgW6oIf3UXLcdynH5394V',
                 'redirect'               => env('APP_URL'),
                 'personal_access_client' => 0,
                 'password_client'        => 1,
@@ -31,8 +31,8 @@ class OauthClientsTableSeeder extends Seeder
             ],
             [
                 'id'                     => 2,
-                'name'                   => 'API Personal Access Client',
-                'secret'                 => 'qQUnQ5zbuNYn0JcKMgkae3EH8kfDoeWAoMkpFxEl',
+                'name'                   => 'Latify Password Grant Client',
+                'secret'                 => 'r4NpgjHKQtVz5VziuBsi5yflRXp6IgA3dAXVziVq',
                 'redirect'               => env('APP_URL'),
                 'personal_access_client' => 1,
                 'password_client'        => 0,

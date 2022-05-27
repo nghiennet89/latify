@@ -23,7 +23,7 @@ class UsersTableSeeder extends Seeder
                 'name'              => 'Administrator',
                 'email'             => 'admin@' . env('APP_DOMAIN'),
                 'email_verified_at' => $date,
-                'password'          => Hash::make('Admin@123'),
+                'password'          => bcrypt('Admin@123'),
                 'role_id'           => Constants::ROLES['ADMIN'],
                 'created_at'        => $date,
                 'updated_at'        => $date,

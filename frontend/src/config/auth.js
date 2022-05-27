@@ -32,10 +32,12 @@ module.exports = function () {
             VueCookies.set(window.location.hostname + '_expires_in', res.data.expires_in, new Date(new Date().getTime() + expiresIn))
             try {
               if (window._VueAdminApp) {
+                window._VueAdminApp.$auth.currentToken = token
                 window._VueAdminApp.$auth.options.refreshData.enabled = true
                 window._VueAdminApp.$auth.options.refreshData.data.refresh_token = res.data.refresh_token
               }
               if (window._VueWebApp) {
+                window._VueWebApp.$auth.currentToken = token
                 window._VueWebApp.$auth.options.refreshData.enabled = true
                 window._VueWebApp.$auth.options.refreshData.data.refresh_token = res.data.refresh_token
               }

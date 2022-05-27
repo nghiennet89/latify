@@ -70,6 +70,11 @@ class User extends BaseEntity
         'email_verified_at' => 'datetime:Y-m-d H:i:s',
     ];
 
+    public function findForPassport($username)
+    {
+        return self::query()->where('email', $username)->first();
+    }
+
     /**
      * @param $accessToken
      *
