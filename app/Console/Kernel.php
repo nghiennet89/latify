@@ -26,6 +26,8 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('database:backup')->dailyAt('00:00');
         $schedule->command('passport:purge')->hourly();
+        $schedule->command('queue:restart')->everyTenMinutes();
+        $schedule->command('queue:work --daemon')->everyMinute()->withoutOverlapping()->appendOutputTo(storage_path('log/queue.log'));
     }
 
     /**
