@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b3bef207c48260cff77eefa316aba707",
+    "revision": "73b559bacd191d9e4924f1af48d2b8b6",
     "url": "/webapp/..\\..\\resources\\views\\admin.blade.php"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/webapp/..\\..\\resources\\views\\index.blade.php"
   },
   {
-    "revision": "844f74deb8c20203163a",
+    "revision": "38daf0948314a7e6c1b5",
     "url": "/webapp/css/admin.c81e39d1.css"
   },
   {
@@ -28,7 +28,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/webapp/css/chunk-186d04d4.e266095d.css"
   },
   {
-    "revision": "0131b5f4242378c1064f",
+    "revision": "ca97fb42b4a1a3b453f7",
     "url": "/webapp/css/chunk-2a105798.88913ff4.css"
   },
   {
@@ -392,8 +392,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/webapp/img/vuetify.ef88ed3b.svg"
   },
   {
-    "revision": "844f74deb8c20203163a",
-    "url": "/webapp/js/admin.005c6cdd.js"
+    "revision": "38daf0948314a7e6c1b5",
+    "url": "/webapp/js/admin.70beed1b.js"
   },
   {
     "revision": "de1aa60c30bc49a1db32",
@@ -416,8 +416,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/webapp/js/chunk-186d04d4.98f33e38.js"
   },
   {
-    "revision": "0131b5f4242378c1064f",
-    "url": "/webapp/js/chunk-2a105798.a38a8409.js"
+    "revision": "ca97fb42b4a1a3b453f7",
+    "url": "/webapp/js/chunk-2a105798.1fa770fc.js"
   },
   {
     "revision": "074f1e3caa153a5c0496",

@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/webapp/precache-manifest.d7881f52cdbf3aa3d2887d5f3e776650.js"
+  "/webapp/precache-manifest.d2c0ebffbefbfd8e635a4ad5fb1cb7cb.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "nghiennet89"});

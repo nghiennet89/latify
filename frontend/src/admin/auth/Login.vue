@@ -13,10 +13,10 @@
               <h1 class="text-center my-4 primary--text">{{ appTitle }}</h1>
             </div>
             <v-form>
-              <v-text-field @keyup.enter="login" v-model="user.username" :label="$t('login.email')" append-icon="mdi-account" autocomplete="username"
+              <v-text-field @keyup.enter="login" v-model="userLogin.username" :label="$t('login.email')" append-icon="mdi-account" autocomplete="username"
                             name="email" required
                             type="email"/>
-              <v-text-field @keyup.enter="login" v-model="user.password" :label="$t('login.password')" append-icon="mdi-lock" autocomplete="current-password"
+              <v-text-field @keyup.enter="login" v-model="userLogin.password" :label="$t('login.password')" append-icon="mdi-lock" autocomplete="current-password"
                             name="password"
                             required type="password"/>
             </v-form>
