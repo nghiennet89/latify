@@ -150,9 +150,13 @@ class InitEntity extends Command
         $repositoryFile = base_path('app/Repositories/' . $entityNameTitle . 'RepositoryEloquent.php');
         $repositoryContent = file_get_contents($repositoryFile);
         $repositoryContent = str_replace('use Prettus\Repository\Criteria\RequestCriteria;', 'use App\Criteria\BaseCriteria;', $repositoryContent);
+        $repositoryContent = str_replace("\n" . 'use App\Repositories\\' . $entityName . 'Repository;', '', $repositoryContent);
+        $repositoryContent = str_replace('use App\Validators\\' . $entityNameTitle . 'Validator;', 'use App\Presenters\DefaultPresenter;
+use App\Validators\DefaultValidator;', $repositoryContent);
         $repositoryContent = str_replace('RequestCriteria::class', 'BaseCriteria::class', $repositoryContent);
-        $repositoryContent = str_replace('}\\r\\n\\r\\n    \\r\\n\\r\\n    /**', '
-        /**
+        $positionToInsert = strlen($repositoryContent) - 2;
+        $repositoryContent = substr($repositoryContent, 0, $positionToInsert) . '
+    /**
      * Specify Validator class name
      *
      * @return mixed
@@ -171,7 +175,7 @@ class InitEntity extends Command
     {
         return DefaultPresenter::class;
     }
-        ', $repositoryContent);
+}';
 
         //Add searchable
         $this->listSearchableFields = [];
@@ -225,6 +229,7 @@ class InitEntity extends Command
         $entityParamsSearch = "\r\n";
         $entityTblHeaders = "\r\n";
         foreach ($fillable as $attributeName) {
+            if(strlen(trim($attributeName)) < 1) continue;
             $attributeTitleName = str_replace('_', '', ucwords($attributeName, '_'));
             $entityFieldsInput .= '      <v-col cols="6"><v-text-field dense outlined label="' . $attributeTitleName . '" v-model="item.' . $attributeName . '"/></v-col>' . "\r\n";
             $entityTblHeaders .= "        {
@@ -233,6 +238,7 @@ class InitEntity extends Command
         }," . "\r\n";
         }
         foreach ($this->listSearchableFields as $attributeName => $searchType) {
+            if(strlen(trim($attributeName)) < 1) continue;
             $attributeTitleName = str_replace('_', '', ucwords($attributeName, '_'));
             $entityUiSearch .= '        <v-text-field dense outlined @keyup.enter="doSearch" class="mr-2" label="Search ' . $attributeTitleName . '"
                       v-model="searchFields.' . $attributeName . '.value"/>' . "\r\n";
@@ -246,8 +252,8 @@ class InitEntity extends Command
             '_ENTITY_UI_SEARCH_'         => $entityUiSearch,
             '_ENTITY_PARAMS_SEARCH_'     => $entityParamsSearch,
             '_ENTITY_TBL_HEADERS_'       => $entityTblHeaders,
-            '_PLURAL_ENTITY_TITLE_'      => $pluralEntityNameTitle,
             '_PLURAL_ENTITY_TITLE_TEXT_' => $pluralEntityNameTitleText,
+            '_PLURAL_ENTITY_TITLE_'      => $pluralEntityNameTitle,
             '_PLURAL_ENTITY_'            => $pluralEntityName,
             '_ENTITY_TITLE_'             => $entityNameTitle,
             '_ENTITY_'                   => $entityName,

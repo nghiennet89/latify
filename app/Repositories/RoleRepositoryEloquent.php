@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Criteria\BaseCriteria;
 use App\Entities\Role;
-use App\Presenters\DefaultPresenter;
 use App\Presenters\RolePresenter;
 use App\Validators\RoleValidator;
 use Prettus\Repository\Eloquent\BaseRepository;
