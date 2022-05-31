@@ -4,6 +4,8 @@ namespace App\Repositories;
 
 use App\Criteria\BaseCriteria;
 use App\Entities\Scope;
+use App\Presenters\DefaultPresenter;
+use App\Validators\DefaultValidator;
 use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
@@ -28,6 +30,25 @@ class ScopeRepositoryEloquent extends BaseRepository implements ScopeRepository
         return Scope::class;
     }
 
+    /**
+     * Specify Validator class name
+     *
+     * @return mixed
+     */
+    public function validator()
+    {
+        return DefaultValidator::class;
+    }
+
+    /**
+     * Specify Presenter class name
+     *
+     * @return mixed
+     */
+    public function presenter()
+    {
+        return DefaultPresenter::class;
+    }
 
     /**
      * Boot up the repository, pushing criteria

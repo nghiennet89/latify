@@ -21,13 +21,6 @@ class RoleTransformer extends TransformerAbstract
      */
     public function transform(Role $model)
     {
-        return [
-            'id' => (int)$model->id,
-
-            /* place your other model properties here */
-
-            'created_at' => $model->created_at,
-            'updated_at' => $model->updated_at
-        ];
+        return $model->toArray();
     }
 }

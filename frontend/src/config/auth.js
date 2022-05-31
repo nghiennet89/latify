@@ -81,7 +81,7 @@ module.exports = function () {
           silent: true
         }
       },
-      parseUserData: data => data
+      parseUserData: res => res.data
     },
     pusher: {
       key: process.env.VUE_APP_PUSHER_APP_KEY,

@@ -2,7 +2,6 @@
 
 namespace App\Transformers;
 
-use App\Entities\User;
 use League\Fractal\TransformerAbstract;
 
 /**
@@ -10,16 +9,16 @@ use League\Fractal\TransformerAbstract;
  *
  * @package namespace App\Transformers;
  */
-class UserTransformer extends TransformerAbstract
+class DefaultTransformer extends TransformerAbstract
 {
     /**
-     * Transform the User entity.
+     * Transform the entity.
      *
-     * @param \App\Entities\User $model
+     * @param $model
      *
      * @return array
      */
-    public function transform(User $model)
+    public function transform($model)
     {
         return $model->toArray();
     }

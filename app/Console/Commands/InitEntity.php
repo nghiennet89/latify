@@ -151,6 +151,27 @@ class InitEntity extends Command
         $repositoryContent = file_get_contents($repositoryFile);
         $repositoryContent = str_replace('use Prettus\Repository\Criteria\RequestCriteria;', 'use App\Criteria\BaseCriteria;', $repositoryContent);
         $repositoryContent = str_replace('RequestCriteria::class', 'BaseCriteria::class', $repositoryContent);
+        $repositoryContent = str_replace('}\\r\\n\\r\\n    \\r\\n\\r\\n    /**', '
+        /**
+     * Specify Validator class name
+     *
+     * @return mixed
+     */
+    public function validator()
+    {
+        return DefaultValidator::class;
+    }
+
+    /**
+     * Specify Presenter class name
+     *
+     * @return mixed
+     */
+    public function presenter()
+    {
+        return DefaultPresenter::class;
+    }
+        ', $repositoryContent);
 
         //Add searchable
         $this->listSearchableFields = [];

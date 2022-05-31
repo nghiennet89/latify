@@ -24,6 +24,11 @@ class ResponseBuilder
         return self::Success(null, __('data.delete.ok'));
     }
 
+    public static function SuccessGet($data)
+    {
+        return response()->json($data);
+    }
+
     public static function FailGet($errorCode = 404)
     {
         return self::Fail(__('data.get.ng'), $errorCode);

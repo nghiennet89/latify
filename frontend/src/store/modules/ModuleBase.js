@@ -49,17 +49,11 @@ export default (itemSchema, resourceName) => {
       searchParams: {},
       selectedId: null,
       pagination: {
+        count: 0,
         current_page: 0,
         per_page: 0,
-        last_page: 0,
-        from: 0,
-        to: 0,
+        total_pages: 0,
         total: 0,
-        first_page_url: '',
-        last_page_url: '',
-        next_page_url: '',
-        prev_page_url: '',
-        path: '',
       }
     },
     
@@ -160,44 +154,32 @@ export default (itemSchema, resourceName) => {
         let params = buildQuery(searchParams);
         let res = await axios.get('/' + resourceName, {params: params});
         let listItems = res.status === 200 && res.data && res.data.data ? res.data.data : [];
-        if (parseInt(params.limit) === -1) listItems = res.status === 200 && res.data ? res.data : [];
-        await commit('ALL', listItems);
-        let pagination = {
+        let meta = res.status === 200 && res.data && res.data.meta ? res.data.meta : {};
+        let pagination = meta.pagination ? meta.pagination : {
+          count: listItems.length,
           current_page: 1,
           per_page: listItems.length,
-          last_page: 1,
-          from: 0,
-          to: listItems.length - 1,
           total: listItems.length,
-          first_page_url: '',
-          last_page_url: '',
-          next_page_url: '',
-          prev_page_url: '',
-          path: '',
+          total_pages: 1,
         }
-        if (params.limit !== -1) {
-          pagination = cloneDeep(res.data)
-          delete pagination.data;
+        if (parseInt(params.limit) === -1) listItems = res.status === 200 && res.data ? res.data : [];
+        await commit('ALL', listItems);
+        if (params.limit !== -1 && res.meta) {
+          pagination = res.meta.pagination
         }
         await commit('PAGINATION', pagination);
         return res
       },
       all: async ({commit}) => {
         let res = await axios.get('/' + resourceName, {params: {limit: -1}});
-        let listItems = res.status === 200 && res.data ? res.data : [];
+        let listItems = res.status === 200 && res.data && res.data.data ? res.data.data : [];
         await commit('ALL', listItems);
         await commit('PAGINATION', {
+          count: listItems.length,
           current_page: 1,
           per_page: listItems.length,
-          last_page: 1,
-          from: 0,
-          to: listItems.length - 1,
           total: listItems.length,
-          first_page_url: '',
-          last_page_url: '',
-          next_page_url: '',
-          prev_page_url: '',
-          path: '',
+          total_pages: 1,
         });
         return res
       },

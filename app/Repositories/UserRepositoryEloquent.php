@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Criteria\UserCriteria;
 use App\Entities\User;
+use App\Presenters\DefaultPresenter;
 use App\Validators\UserValidator;
 use Prettus\Repository\Eloquent\BaseRepository;
 
@@ -41,6 +42,15 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
         return UserValidator::class;
     }
 
+    /**
+     * Specify Presenter class name
+     *
+     * @return mixed
+     */
+    public function presenter()
+    {
+        return DefaultPresenter::class;
+    }
 
     /**
      * Boot up the repository, pushing criteria

@@ -136,7 +136,7 @@ export default {
         ...this.queryConf,
         searchFields: this.searchFields,
       }).then(res => {
-        if (this.tblOptions.page > res.data.last_page) this.tblOptions.page = res.data.last_page;
+        if (this.tblOptions.page > res.data.total_pages) this.tblOptions.page = res.data.total_pages;
       }).finally(() => {
         this.tblLoading = false
       });

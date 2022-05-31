@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Criteria\BaseCriteria;
 use App\Exceptions\ApiException;
 use App\Http\Controllers\Controller;
 use App\Services\DefaultExport;
@@ -16,6 +15,7 @@ use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Validators\ValidationException;
 use Prettus\Repository\Contracts\RepositoryInterface;
+use Prettus\Repository\Presenter\FractalPresenter;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 use Prettus\Validator\LaravelValidator;
@@ -38,6 +38,11 @@ class ApiBaseController extends Controller
     protected $validator;
 
     /**
+     * @var \Prettus\Repository\Presenter\FractalPresenter|null
+     */
+    protected $presenter;
+
+    /**
      * @var Request
      */
     protected $createRequest;
@@ -55,13 +60,20 @@ class ApiBaseController extends Controller
      * @param $createRequest
      * @param $updateRequest
      */
-    public function __construct(RepositoryInterface $repository, LaravelValidator $validator = null, $createRequest = null, $updateRequest = null)
+    public function __construct(RepositoryInterface $repository,
+                                                    $createRequest = null,
+                                                    $updateRequest = null,
+                                LaravelValidator    $validator = null,
+                                FractalPresenter    $presenter = null)
     {
         if (!$validator) $validator = app('App\Validators\DefaultValidator');
         $this->repository = $repository;
-        $this->validator = $validator;
+        $this->validator = $validator ?: $this->repository->validator();
+        $this->presenter = $presenter ?: $this->repository->presenter();
+        if ($presenter) $this->repository->setPresenter($presenter);
         $this->createRequest = $createRequest;
         $this->updateRequest = $updateRequest;
+
     }
 
     /**
@@ -71,10 +83,10 @@ class ApiBaseController extends Controller
      */
     public function index(Request $request)
     {
-        $this->repository->pushCriteria(app(BaseCriteria::class));
         $limit = $request->input('limit', config('repository.pagination.limit', 15));
         if ($limit == -1) return $this->repository->all();
-        return $this->repository->paginate($limit);
+        $result = $this->repository->paginate($limit);
+        return ResponseBuilder::SuccessGet($result);
     }
 
     /**
@@ -125,14 +137,12 @@ class ApiBaseController extends Controller
      */
     public function show($id)
     {
-        $this->repository->pushCriteria(app(BaseCriteria::class));
         try {
             $item = $this->repository->find($id);
         } catch (Exception $e) {
             throw new ApiException(__('data.get.ng'));
         }
-
-        return $item;
+        return ResponseBuilder::SuccessGet($item);
     }
 
     /**
@@ -163,7 +173,6 @@ class ApiBaseController extends Controller
             if ($this->validator) $this->validator->with($input)->passesOrFail(ValidatorInterface::RULE_UPDATE);
             unset($input['id']);
             $item = $this->repository->update($input, $id);
-
             return ResponseBuilder::SuccessUpdate($item);
 
         } catch (ValidatorException $e) {

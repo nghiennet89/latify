@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\Api\RoleCreateRequest;
 use App\Http\Requests\Api\RoleSetScopeRequest;
 use App\Http\Requests\Api\RoleUpdateRequest;
+use App\Presenters\DefaultPresenter;
 use App\Repositories\RoleRepository;
 use App\Services\RoleServices;
+use App\Validators\DefaultValidator;
 use App\Validators\RoleValidator;
 
 /**
@@ -21,12 +23,11 @@ class ApiRolesController extends ApiBaseController
      */
     protected $roleServices;
 
-    public function __construct(RoleRepository $repository, RoleValidator $validator, RoleServices $roleServices)
+    public function __construct(RoleRepository $repository, RoleServices $roleServices)
     {
         $this->roleServices = $roleServices;
         parent::__construct(
             $repository,
-            $validator,
             RoleCreateRequest::class,
             RoleUpdateRequest::class
         );

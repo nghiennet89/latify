@@ -43,11 +43,10 @@ class ApiUsersController extends ApiBaseController
      * @param UserRepository $repository
      * @param UserValidator  $validator
      */
-    public function __construct(UserRepository $repository, UserValidator $validator, UserServices $userServices)
+    public function __construct(UserRepository $repository, UserServices $userServices)
     {
         parent::__construct(
             $repository,
-            $validator,
             UserCreateRequest::class,
             UserUpdateRequest::class
         );
@@ -138,8 +137,8 @@ class ApiUsersController extends ApiBaseController
         $oldPassword = $request->input('old_password');
         //check if pasword is valid
         $user = $this->repository->find($id);
-        if(!$user) return ResponseBuilder::Fail('User not found');
-        if(!Hash::check($oldPassword, $user->password))  return ResponseBuilder::Fail('Invalid password');
+        if (!$user) return ResponseBuilder::Fail('User not found');
+        if (!Hash::check($oldPassword, $user->password)) return ResponseBuilder::Fail('Invalid password');
         $newPassword = $request->input('password');
         $dataResponse = $this->userServices->changePassword($newPassword, $user->id);
         if (!$dataResponse) return ResponseBuilder::FailUpdate();

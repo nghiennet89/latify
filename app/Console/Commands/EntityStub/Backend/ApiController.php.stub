@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Repositories\_ENTITY_TITLE_Repository;
-use App\Validators\DefaultValidator;
 
 /**
  * Class RolesController.
@@ -12,8 +11,8 @@ use App\Validators\DefaultValidator;
  */
 class Api_PLURAL_ENTITY_TITLE_Controller extends ApiBaseController
 {
-    public function __construct(_ENTITY_TITLE_Repository $repository, DefaultValidator $validator)
+    public function __construct(_ENTITY_TITLE_Repository $repository)
     {
-        parent::__construct($repository, $validator);
+        parent::__construct($repository);
     }
 }
