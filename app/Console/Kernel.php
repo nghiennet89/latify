@@ -29,7 +29,10 @@ class Kernel extends ConsoleKernel
         $schedule->command('passport:purge')->hourly();
         if(env('RUN_QUEUE_VIA_COMMAND', false)) {
             $schedule->command('queue:restart')->everyTenMinutes();
-            $schedule->command('queue:work --daemon')->everyMinute()->withoutOverlapping()->appendOutputTo(storage_path('log/queue-' . date('Y-m-d') . '.log'));
+            $schedule->command('queue:work --daemon')
+                ->everyMinute()
+                ->withoutOverlapping()
+                ->appendOutputTo(storage_path('logs/queue-' . date('Y-m-d') . '.log'));
         }
     }
 
