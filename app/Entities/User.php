@@ -48,6 +48,7 @@ class User extends BaseEntity
         'email',
         'password',
         'api_key',
+        'webhook_url',
     ];
 
     /**
