@@ -134,7 +134,7 @@ class ApiUsersController extends ApiBaseController
      */
     public function changePassword(Request $request, $id)
     {
-        //check if pasword is valid
+        //check user
         $user = $this->repository->find($id);
         if (!$user) return ResponseBuilder::Fail('User not found');
         $newPassword = $request->input('password');

@@ -13,6 +13,7 @@
 
 
 use App\Http\Controllers\Api\ApiUsersController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('server-time', function () {
@@ -28,7 +29,7 @@ Route::group(['middleware' => ['auth:api', 'verified']], function () {
     Route::group(['prefix' => 'user'], function () {
         Route::get('logout', [ApiUsersController::class, 'logout']);
         Route::get('info', [ApiUsersController::class, 'info']);
-        Route::post('change-password/{id}', [ApiUsersController::class, 'scope:users-change-password']);
+        Route::post('change-password', [UsersController::class, 'changePassword']);
         Route::get('create-api-key', [ApiUsersController::class, 'createApiKey']);
         Route::any('sample-notification', [ApiUsersController::class, 'sampleNotification']);
         Route::any('sample-event', [ApiUsersController::class, 'sampleEvent']);
