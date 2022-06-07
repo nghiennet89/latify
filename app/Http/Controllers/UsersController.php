@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Api\UserChangePasswordRequest;
 use App\Repositories\UserRepository;
+use App\Services\UserServices;
+use App\Utils\ResponseBuilder;
 use App\Validators\UserValidator;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * Class UsersController.
@@ -27,21 +32,26 @@ class UsersController extends Controller
      */
     protected $validator;
 
+    protected $userServices;
+
     /**
      * UsersController constructor.
      *
-     * @param UserRepository $repository
-     * @param UserValidator $validator
+     * @param UserRepository             $repository
+     * @param UserValidator              $validator
+     * @param \App\Services\UserServices $userServices
      */
-    public function __construct(UserRepository $repository, UserValidator $validator)
+    public function __construct(UserRepository $repository, UserValidator $validator, UserServices $userServices)
     {
         $this->repository = $repository;
         $this->validator = $validator;
+        $this->userServices = $userServices;
     }
 
     /**
      * @param $id
      * @param $hash
+     *
      * @return Application|RedirectResponse|Redirector
      * @throws AuthorizationException
      */
@@ -62,5 +72,17 @@ class UsersController extends Controller
             event(new Verified($user));
         }
         return redirect(route('verification.verified'))->with('verified', true);
+    }
+
+    public function changePassword(UserChangePasswordRequest $request)
+    {
+        $oldPassword = $request->input('old_password');
+        //check if pasword is valid
+        $user = Auth::user();
+        if (!Hash::check($oldPassword, $user->password)) return ResponseBuilder::Fail('Invalid password');
+        $newPassword = $request->input('password');
+        $dataResponse = $this->userServices->changePassword($newPassword, $user->id);
+        if (!$dataResponse) return ResponseBuilder::FailUpdate();
+        return ResponseBuilder::SuccessUpdate();
     }
 }
