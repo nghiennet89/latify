@@ -20,7 +20,7 @@ export const buildQuery = (params) => {
   if (params.withCount && !params.searchWithCount) params.searchWithCount = params.withCount;
   if (params.searchWith) query.with = params.searchWith
   if (params.searchWithCount) query.withCount = params.searchWithCount
-  
+
   let search = params.searchFields ? params.searchFields : {}
   let searchValues = [];
   let searchTypes = [];
@@ -56,15 +56,17 @@ export default (itemSchema, resourceName) => {
         total: 0,
       }
     },
-    
+
     getters: {
       all: state => state.all,
       getById: state => id => {
+        if(!Array.isArray(state.all)) return null;
         let item = state.all.filter(i => i.id === id);
         if (item.length) return item[0];
         return null
       },
       getByFields: state => fields => {
+        if(!Array.isArray(state.all)) return [];
         return state.all.filter(i => {
           let matched = true;
           Object.keys(fields).forEach(fieldName => {
@@ -77,13 +79,14 @@ export default (itemSchema, resourceName) => {
         })
       },
       selected: state => {
+        if(!Array.isArray(state.all)) return null;
         let item = state.all.filter(i => i.id === state.selectedId);
         if (item.length) return item[0];
         return null;
       },
       pagination: state => state.pagination,
     },
-    
+
     mutations: {
       INIT_STATE(state, items) {
         state = items;
@@ -96,6 +99,7 @@ export default (itemSchema, resourceName) => {
       },
       ADD(state, item) {
         item = inspector.sanitize(itemSchema.sanitize, item).data;
+        if(!Array.isArray(state.all)) state.all = [];
         let existedItem = state.all.filter(i => i.id === item.id);
         if (!existedItem.length) {
           let all = cloneDeep(state.all)
@@ -105,6 +109,7 @@ export default (itemSchema, resourceName) => {
       },
       UPDATE(state, item) {
         item = inspector.sanitize(itemSchema.sanitize, item).data;
+        if(!Array.isArray(state.all)) state.all = [];
         let existedItem = state.all.filter(i => i.id === item.id);
         if (existedItem.length) {
           let itemIndex = state.all.indexOf(existedItem[0]);
@@ -114,6 +119,7 @@ export default (itemSchema, resourceName) => {
         } else console.log('item not found to update', item)
       },
       UPSERT(state, item) {
+        if(!Array.isArray(state.all)) state.all = [];
         let existedItem = state.all.filter(i => i.id === item.id);
         let all = cloneDeep(state.all)
         if (existedItem.length) {
@@ -123,6 +129,7 @@ export default (itemSchema, resourceName) => {
         state.all = all;
       },
       UPSERT_MULTI(state, items) {
+        if(!Array.isArray(state.all)) state.all = [];
         let all = cloneDeep(state.all)
         items.forEach(item => {
           let existedItem = state.all.filter(i => i.id === item.id);
@@ -134,6 +141,7 @@ export default (itemSchema, resourceName) => {
         state.all = all;
       },
       DELETE(state, id) {
+        if(!Array.isArray(state.all)) state.all = [];
         let existedItem = state.all.filter(i => i.id === id);
         if (existedItem.length) {
           state.all = state.all.filter(i => i.id !== id)
@@ -148,12 +156,13 @@ export default (itemSchema, resourceName) => {
         state.searchParams = {}
       }
     },
-    
+
     actions: {
       get: async ({commit}, searchParams) => {
         let params = buildQuery(searchParams);
         let res = await axios.get('/' + resourceName, {params: params});
         let listItems = res.status === 200 && res.data && res.data.data ? res.data.data : [];
+        if (parseInt(params.limit) === -1) listItems = res.status === 200 && res.data ? res.data : [];
         let meta = res.status === 200 && res.data && res.data.meta ? res.data.meta : {};
         let pagination = meta.pagination ? meta.pagination : {
           count: listItems.length,
@@ -162,7 +171,6 @@ export default (itemSchema, resourceName) => {
           total: listItems.length,
           total_pages: 1,
         }
-        if (parseInt(params.limit) === -1) listItems = res.status === 200 && res.data ? res.data : [];
         await commit('ALL', listItems);
         if (params.limit !== -1 && res.meta) {
           pagination = res.meta.pagination
