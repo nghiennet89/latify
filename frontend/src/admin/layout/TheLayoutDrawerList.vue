@@ -1,8 +1,8 @@
 <template>
   <v-list :dense="dense" class="layout-drawer">
     <div v-for="item in menu" :key="item.name">
-      <v-list-item v-if="!hasChildren(item)" :class="item.name === $route.name ? 'v-list-item--active' : ''" ripple="ripple"
-                   @click="openRoute(item, $event)" class="px-1">
+      <v-list-item v-if="!hasChildren(item)" :class="item.name === $route.name ? 'v-list-item--active' : ''" class="px-1"
+                   ripple="ripple" @click="openRoute(item, $event)">
         <v-list-item-icon class="layout-drawer__icon ma-3">
           <v-icon>{{ getListIcon(item) }}</v-icon>
         </v-list-item-icon>
@@ -23,7 +23,7 @@
           </v-list-item-content>
         </template>
 
-        <the-layout-drawer-list :dense="dense" :menu="item.children" :iconShow="true"/>
+        <the-layout-drawer-list :dense="dense" :iconShow="true" :menu="item.children"/>
       </v-list-group>
     </div>
   </v-list>

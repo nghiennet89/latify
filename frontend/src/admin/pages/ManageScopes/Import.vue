@@ -1,8 +1,8 @@
 <template>
   <v-card>
     <v-card-title>Import Scopes</v-card-title>
-    <v-file-input dense outlined label="File to import" show-size class="mx-4"
-                  v-model="importFile"/>
+    <v-file-input v-model="importFile" class="mx-4" dense label="File to import" outlined
+                  show-size/>
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn color="secondary" text @click="onCancel">Cancel</v-btn>

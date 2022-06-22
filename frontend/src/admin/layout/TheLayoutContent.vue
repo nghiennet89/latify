@@ -2,7 +2,7 @@
   <v-main>
     <transition mode="out-in" name="fade-transform">
       <keep-alive>
-        <v-card tile :elevation="0" class="layout-card-content">
+        <v-card :elevation="0" class="layout-card-content" tile>
           <router-view/>
         </v-card>
       </keep-alive>

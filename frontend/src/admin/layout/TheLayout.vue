@@ -1,6 +1,6 @@
 <template>
   <div class="v-application--wrap">
-    <div class="app-background" :style="'background-image: url(' + backgroundImage + ')'"></div>
+    <div :style="'background-image: url(' + backgroundImage + ')'" class="app-background"></div>
     <the-layout-drawer/>
     <the-layout-toolbar/>
     <the-layout-content/>

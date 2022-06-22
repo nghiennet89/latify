@@ -58,9 +58,7 @@ export default new Vuex.Store({
       res.forEach((r, i) => r && r.data ? (r.data.data ? res[i] = r.data.data : res[i] = r.data) : {});
       return res
     },
-    
+
   },
-  getters: {
-  
-  },
+  getters: {},
 });

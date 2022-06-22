@@ -1,7 +1,7 @@
 <template>
   <v-card class="mx-auto pa-5">
     <v-row>
-      <v-col cols="12" class="pl-1 pr-2">
+      <v-col class="pl-1 pr-2" cols="12">
         <h3 class="title-col mb-2 pl-3">Change Password</h3>
         <v-row no-gutters>
           <v-col cols="4">
@@ -11,11 +11,11 @@
           </v-col>
           <v-col cols="8">
             <v-text-field
-                v-model="old_password"
-                type="password"
-                dense
-                outlined
-                placeholder="Current password"
+              v-model="old_password"
+              dense
+              outlined
+              placeholder="Current password"
+              type="password"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -27,11 +27,11 @@
           </v-col>
           <v-col cols="8">
             <v-text-field
-                v-model="password"
-                type="password"
-                dense
-                outlined
-                placeholder="New password"
+              v-model="password"
+              dense
+              outlined
+              placeholder="New password"
+              type="password"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -43,11 +43,11 @@
           </v-col>
           <v-col cols="8">
             <v-text-field
-                v-model="password_conf"
-                type="password"
-                dense
-                outlined
-                placeholder="Repeat new password"
+              v-model="password_conf"
+              dense
+              outlined
+              placeholder="Repeat new password"
+              type="password"
             ></v-text-field>
           </v-col>
         </v-row>
@@ -57,10 +57,10 @@
       <v-spacer></v-spacer>
       <v-btn color="secondary" text @click="onClickCancel">Cancel</v-btn>
       <v-btn
-          color="primary"
-          text
-          @click="onClickSave"
-          :disabled="password === '' || password === ''"
+        :disabled="password === '' || password === ''"
+        color="primary"
+        text
+        @click="onClickSave"
       >Save
       </v-btn
       >

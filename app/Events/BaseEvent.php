@@ -2,13 +2,13 @@
 
 namespace App\Events;
 
-use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class BaseEvent implements ShouldBroadcast, ShouldQueue
 {
@@ -45,7 +45,8 @@ class BaseEvent implements ShouldBroadcast, ShouldQueue
         ];
     }
 
-    public function getData() {
+    public function getData()
+    {
         return $this->data;
     }
 }

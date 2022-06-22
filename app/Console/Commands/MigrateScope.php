@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use Exception;
 use App\Entities\Scope;
 use App\Utils\Constants;
 use App\Entities\RoleScopes;
@@ -98,7 +99,7 @@ class MigrateScope extends Command
             if (count($scopesToAssign)) RoleScopes::query()->insert($scopesToAssign);
             DB::commit();
             echo 'Completed' . "\n";
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
             echo 'Fail';
         }

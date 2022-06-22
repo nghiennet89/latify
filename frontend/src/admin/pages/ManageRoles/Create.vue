@@ -3,7 +3,7 @@
     <v-card-title class="mx-0 px-0">Create new role</v-card-title>
     <v-row>
       <v-col cols="12">
-        <v-text-field dense outlined label="Name" v-model="newItem.name"/>
+        <v-text-field v-model="newItem.name" dense label="Name" outlined/>
       </v-col>
     </v-row>
     <v-card-actions class="mx-0 pa-0">

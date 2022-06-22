@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Api\UserChangePasswordRequest;
-use App\Repositories\UserRepository;
 use App\Services\UserServices;
 use App\Utils\ResponseBuilder;
 use App\Validators\UserValidator;
-use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Auth\Events\Verified;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
+use App\Repositories\UserRepository;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Auth\Access\AuthorizationException;
+use App\Http\Requests\Api\UserChangePasswordRequest;
 
 /**
  * Class UsersController.

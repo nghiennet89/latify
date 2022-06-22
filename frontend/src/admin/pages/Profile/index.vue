@@ -1,10 +1,10 @@
 <template>
-  <v-card class="ma-4" tile :elevation="0">
+  <v-card :elevation="0" class="ma-4" tile>
     <h1 class="mx-4">User Profile</h1>
     <v-row class="mb-4">
       <v-col cols="3" md="6" sm="12" xs="12">
         <v-row justify="center">
-          <v-avatar size="275" class="mr-4">
+          <v-avatar class="mr-4" size="275">
             <img :src="form.avatar" alt="Avatar">
           </v-avatar>
         </v-row>
@@ -14,40 +14,40 @@
           </v-col>
           <v-spacer></v-spacer>
           <v-col>
-            <v-btn @click="dialogChangePassword = true" color="warning">Change Password</v-btn>
+            <v-btn color="warning" @click="dialogChangePassword = true">Change Password</v-btn>
           </v-col>
         </v-row>
       </v-col>
       <v-col cols="9" md="6" sm="12" xs="12">
-        <v-text-field outlined
-                      v-model="form.name"
-                      label="Name"></v-text-field>
-        <v-text-field outlined disabled
-                      v-model="form.role"
-                      label="Role"></v-text-field>
-        <v-text-field outlined disabled
-                      v-model="form.email"
-                      label="Email Address"></v-text-field>
+        <v-text-field v-model="form.name"
+                      label="Name"
+                      outlined></v-text-field>
+        <v-text-field v-model="form.role" disabled
+                      label="Role"
+                      outlined></v-text-field>
+        <v-text-field v-model="form.email" disabled
+                      label="Email Address"
+                      outlined></v-text-field>
         <v-container class="full-width pa-0" style="display: inline-block">
-          <v-textarea readonly outlined class="text-sm-left" style="font-size: smaller"
-                      v-model="form.api_key"
-                      label="API Key"></v-textarea>
-          <v-btn color="warning" @click="createApiKey" class="mb-8 float-right">New Key</v-btn>
+          <v-textarea v-model="form.api_key" class="text-sm-left" label="API Key" outlined
+                      readonly
+                      style="font-size: smaller"></v-textarea>
+          <v-btn class="mb-8 float-right" color="warning" @click="createApiKey">New Key</v-btn>
         </v-container>
-        <v-text-field outlined v-model="form.webhook_url"
-                      label="Webhook URL"></v-text-field>
+        <v-text-field v-model="form.webhook_url" label="Webhook URL"
+                      outlined></v-text-field>
       </v-col>
     </v-row>
     <v-divider></v-divider>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn color="primary" :loading="loading" @click.native="updateProfile">
-        <v-icon left dark>mdi-check</v-icon>
+      <v-btn :loading="loading" color="primary" @click.native="updateProfile">
+        <v-icon dark left>mdi-check</v-icon>
         Save Changes
       </v-btn>
     </v-card-actions>
     <v-dialog v-model="dialogAvatarPicker" :width="400">
-      <avatar-picker :current-avatar="form.avatar" @selected="selectAvatar" :onCancel="()=>{dialogAvatarPicker=false}"></avatar-picker>
+      <avatar-picker :current-avatar="form.avatar" :onCancel="()=>{dialogAvatarPicker=false}" @selected="selectAvatar"></avatar-picker>
     </v-dialog>
     <v-dialog v-if="dialogChangePassword" v-model="dialogChangePassword" :width="600">
       <ChangePassword :onCancel="()=>{dialogChangePassword = false}" :onPasswordChanged="()=>{dialogChangePassword = false}"/>

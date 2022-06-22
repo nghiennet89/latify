@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('database:backup')->dailyAt('00:00');
         $schedule->command('passport:purge')->hourly();
-        if(env('RUN_QUEUE_VIA_COMMAND', false)) {
+        if (env('RUN_QUEUE_VIA_COMMAND', false)) {
             $schedule->command('queue:restart')->everyTenMinutes();
             $schedule->command('queue:work --daemon')
                 ->everyMinute()

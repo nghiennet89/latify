@@ -2,7 +2,7 @@
   <v-app>
     <router-view ref="content"/>
     <div id="app-loading" :style="appLoading || initializing ? 'display: block;' : 'display: none;'">
-      <img class="indicator-icon" :src="require('~/img/loading_indicator.svg')" alt="loading...">
+      <img :src="require('~/img/loading_indicator.svg')" alt="loading..." class="indicator-icon">
     </div>
     <AdminNotice></AdminNotice>
   </v-app>

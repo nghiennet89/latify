@@ -1,7 +1,7 @@
 <template>
-  <v-card tile :elevation="0" class="crud-box list-notifications">
+  <v-card :elevation="0" class="crud-box list-notifications" tile>
     <h1 class="mx-4">Notifications</h1>
-    <v-layout wrap class="px-4 pt-4">
+    <v-layout class="px-4 pt-4" wrap>
       <div style="overflow: visible">
         <!--        <v-btn color="primary" outlined class="mr-2" @click="onClickExport">
                   <v-icon>mdi-database-export</v-icon>
@@ -10,9 +10,9 @@
       </div>
       <!---->
       <v-spacer></v-spacer>
-      <v-layout wrap style="max-width: 255px;">
-        <v-text-field dense outlined @keyup.enter="doSearch" class="mr-2" label="Search Message"
-                      v-model="searchFields.data.value"/>
+      <v-layout style="max-width: 255px;" wrap>
+        <v-text-field v-model="searchFields.data.value" class="mr-2" dense label="Search Message" outlined
+                      @keyup.enter="doSearch"/>
       </v-layout>
       <v-btn color="primary" @click="doSearch">
         <v-icon>mdi-magnify</v-icon>
@@ -21,16 +21,16 @@
     </v-layout>
 
     <!--card content-->
-    <v-card tile :elevation="1" :disabled="tblLoading" outlined class="block-tbl mx-4">
-      <v-data-table :headers="tblHeader" :items="listItems" :server-items-length="tblPagination.total" :loading="tblLoading"
-                    @click:row="onClickRow" :options.sync="tblOptions" single-expand :expanded.sync="expanded"
-                    :loading-text="tblConfig.text.loading" v-model="pickedItems" :show-select="tblConfig.showSelect">
+    <v-card :disabled="tblLoading" :elevation="1" class="block-tbl mx-4" outlined tile>
+      <v-data-table v-model="pickedItems" :expanded.sync="expanded" :headers="tblHeader" :items="listItems"
+                    :loading="tblLoading" :loading-text="tblConfig.text.loading" :options.sync="tblOptions" :server-items-length="tblPagination.total"
+                    :show-select="tblConfig.showSelect" single-expand @click:row="onClickRow">
         <template v-slot:no-data>
           {{ tblConfig.text.noItem }}
         </template>
 
         <template v-slot:item.message="{item}">
-          <div class="notification-message" :class="{'message-unread': item.status === 'unread'}">{{ item.message }}</div>
+          <div :class="{'message-unread': item.status === 'unread'}" class="notification-message">{{ item.message }}</div>
         </template>
 
         <template v-slot:item.created_time="{item}">
@@ -45,10 +45,10 @@
       </v-data-table>
     </v-card>
     <v-dialog v-model="dialog.detail" :width="'60%'">
-      <DetailItem :selectedItem="selectedItem" :onClose="()=>{dialog.detail=false}"></DetailItem>
+      <DetailItem :onClose="()=>{dialog.detail=false}" :selectedItem="selectedItem"></DetailItem>
     </v-dialog>
     <v-dialog v-model="dialog.delete" :width="400">
-      <DeleteItem :idsToDelete="idsToDelete" :onDeleted="onDeleted" :onCancel="()=>{dialog.delete=false}"></DeleteItem>
+      <DeleteItem :idsToDelete="idsToDelete" :onCancel="()=>{dialog.delete=false}" :onDeleted="onDeleted"></DeleteItem>
     </v-dialog>
   </v-card>
 </template>
@@ -113,7 +113,7 @@ export default {
   }
 }
 </script>
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .text-date {
   text-align: right;
 }

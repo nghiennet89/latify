@@ -3,13 +3,13 @@
     <v-card-title class="mx-0 px-0">Create new scope</v-card-title>
     <v-row>
       <v-col cols="6">
-        <v-text-field dense outlined label="Name" v-model="newItem.name"/>
+        <v-text-field v-model="newItem.name" dense label="Name" outlined/>
       </v-col>
       <v-col cols="6">
-        <v-text-field dense outlined label="Group" v-model="newItem.group"/>
+        <v-text-field v-model="newItem.group" dense label="Group" outlined/>
       </v-col>
       <v-col cols="6">
-        <v-text-field dense outlined label="Title" v-model="newItem.title"/>
+        <v-text-field v-model="newItem.title" dense label="Title" outlined/>
       </v-col>
     </v-row>
     <v-card-actions class="mx-0 pa-0">

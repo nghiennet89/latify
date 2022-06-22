@@ -21,7 +21,7 @@ module.exports = function () {
             VueCookies.remove(window.location.hostname + '_refresh_token');
             return personalAccessToken
           }
-          
+
           let token = res.data ? res.data.access_token : null
           if (token) {
             let expiresIn = parseInt(res.data.expired_in)
@@ -69,7 +69,8 @@ module.exports = function () {
         url: '../oauth/token',
         method: 'POST',
         //enabled: !window.localStorage.getItem(window.location.hostname + '_personal_access_token') && !VueCookies.isKey(window.location.hostname + '_personal_access_token'),
-        enabled: VueCookies.isKey(window.location.hostname + '_refresh_token'),
+        //enabled: VueCookies.isKey(window.location.hostname + '_refresh_token'),
+        enabled: false,
         interval: 15, //minutes
         data: {
           refresh_token: VueCookies.isKey(window.location.hostname + '_refresh_token') ? VueCookies.get(window.location.hostname + '_refresh_token') : 'no-token',

@@ -84,7 +84,7 @@ return [
         | you can enable it by setting read_only to false.
         |
         */
-        'read_only' => true,
+        'read_only'    => true,
 
         /*
         |--------------------------------------------------------------------------
@@ -108,7 +108,7 @@ return [
         | Available options: none|slug|custom
         |
         */
-        'heading_row' => [
+        'heading_row'  => [
             'formatter' => 'slug',
         ],
 
@@ -120,7 +120,7 @@ return [
         | Configure e.g. delimiter, enclosure and line ending for CSV imports.
         |
         */
-        'csv'         => [
+        'csv'          => [
             'delimiter'        => ',',
             'enclosure'        => '"',
             'escape_character' => '\\',
@@ -136,7 +136,7 @@ return [
         | Configure e.g. default title, creator, subject,...
         |
         */
-        'properties'  => [
+        'properties'   => [
             'creator'        => '',
             'lastModifiedBy' => '',
             'title'          => '',
@@ -205,11 +205,11 @@ return [
     | [x] PhpOffice\PhpSpreadsheet\Cell\AdvancedValueBinder::class
     |
     */
-    'value_binder' => [
+    'value_binder'       => [
         'default' => Maatwebsite\Excel\DefaultValueBinder::class,
     ],
 
-    'cache' => [
+    'cache'        => [
         /*
         |--------------------------------------------------------------------------
         | Default cell caching driver
@@ -238,7 +238,7 @@ return [
         | Here you can tweak the memory limit to your liking.
         |
         */
-        'batch'     => [
+        'batch'      => [
             'memory_limit' => 60000,
         ],
 

@@ -12,10 +12,10 @@
 */
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\SocialAccountsController;
-use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UsersController;
+use App\Http\Controllers\SocialAccountsController;
 
 Auth::routes(['verify' => true]);
 

@@ -9,16 +9,17 @@
           </v-card-actions>
           <v-card-text>
             <div class="layout column align-center">
-              <img alt="Vue Vuetify Admin Logo" height="120" :src="require('~/img/icons/vuetify.svg')" width="120">
+              <img :src="require('~/img/icons/vuetify.svg')" alt="Vue Vuetify Admin Logo" height="120" width="120">
               <h1 class="text-center my-4 primary--text">{{ appTitle }}</h1>
             </div>
             <v-form>
-              <v-text-field @keyup.enter="login" v-model="userLogin.username" :label="$t('login.email')" append-icon="mdi-account" autocomplete="username"
-                            name="email" required
-                            type="email"/>
-              <v-text-field @keyup.enter="login" v-model="userLogin.password" :label="$t('login.password')" append-icon="mdi-lock" autocomplete="current-password"
+              <v-text-field v-model="userLogin.username" :label="$t('login.email')" append-icon="mdi-account" autocomplete="username" name="email"
+                            required type="email"
+                            @keyup.enter="login"/>
+              <v-text-field v-model="userLogin.password" :label="$t('login.password')" append-icon="mdi-lock" autocomplete="current-password"
                             name="password"
-                            required type="password"/>
+                            required
+                            type="password" @keyup.enter="login"/>
             </v-form>
           </v-card-text>
           <v-card-actions>
@@ -30,19 +31,19 @@
                   </v-btn>
                 </v-col>
                 <v-col cols="6">
-                  <v-btn :loading="loading" color="primary" class="float-right" @click="login">
+                  <v-btn :loading="loading" class="float-right" color="primary" @click="login">
                     {{ $t('login.login') }}
                   </v-btn>
                 </v-col>
                 <v-col cols="12">
-                  <v-btn block color="red" class="float-left white--text" href="/social-login/google">
-                    <v-icon color="white" class="v-size--x-large mr-2">mdi-google</v-icon>
+                  <v-btn block class="float-left white--text" color="red" href="/social-login/google">
+                    <v-icon class="v-size--x-large mr-2" color="white">mdi-google</v-icon>
                     Login with Google
                   </v-btn>
                 </v-col>
                 <v-col cols="12">
-                  <v-btn block class="float-right white--text" style="background: #3b5998" href="/social-login/facebook">
-                    <v-icon color="white" class="v-size--x-large mr-2">mdi-facebook</v-icon>
+                  <v-btn block class="float-right white--text" href="/social-login/facebook" style="background: #3b5998">
+                    <v-icon class="v-size--x-large mr-2" color="white">mdi-facebook</v-icon>
                     Login with Facebook
                   </v-btn>
                 </v-col>
@@ -51,11 +52,11 @@
             </template>
             <template v-else>
               <v-btn color="red white--text" href="/social-login/google">
-                <v-icon color="white" class="v-size--x-large mr-2">mdi-google</v-icon>
+                <v-icon class="v-size--x-large mr-2" color="white">mdi-google</v-icon>
                 Google
               </v-btn>
-              <v-btn color="white--text" style="background: #3b5998" href="/social-login/facebook">
-                <v-icon color="white" class="v-size--x-large mr-2">mdi-facebook</v-icon>
+              <v-btn color="white--text" href="/social-login/facebook" style="background: #3b5998">
+                <v-icon class="v-size--x-large mr-2" color="white">mdi-facebook</v-icon>
                 Facebook
               </v-btn>
               <v-spacer/>

@@ -33,7 +33,7 @@
       </v-list-item>
     </v-list>
     <v-divider/>
-    <v-subheader @click="showAllNotify" style="cursor: pointer">Show All</v-subheader>
+    <v-subheader style="cursor: pointer" @click="showAllNotify">Show All</v-subheader>
   </v-menu>
 </template>
 

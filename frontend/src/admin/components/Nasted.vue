@@ -1,18 +1,18 @@
 <template>
   <v-container class="fill-height">
     <v-row
-      no-gutters
       align="center"
       justify="center"
+      no-gutters
     >
       <v-col class="text-center">
         <v-card :class="`cyan accent-${nestedLevel}`">
           <v-card-text>{{ $t(this.$route.meta.title) }}</v-card-text>
           <transition
-            name="fade-transform"
             mode="out-in"
+            name="fade-transform"
           >
-            <router-view :nested-level="nestedLevel + 1" />
+            <router-view :nested-level="nestedLevel + 1"/>
           </transition>
         </v-card>
       </v-col>

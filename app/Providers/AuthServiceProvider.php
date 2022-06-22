@@ -3,9 +3,9 @@
 namespace App\Providers;
 
 use App\Entities\Scope;
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Log;
 use Laravel\Passport\Passport;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -42,6 +42,8 @@ class AuthServiceProvider extends ServiceProvider
         Passport::setDefaultScope([]);
 
         Passport::routes();
+
+        Passport::tokensExpireIn(now()->addYear());
         Passport::personalAccessTokensExpireIn(now()->addYears(100));
     }
 }

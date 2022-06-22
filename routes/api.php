@@ -13,9 +13,9 @@
 
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Api\ApiUsersController;
-use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UsersController;
+use App\Http\Controllers\Api\ApiUsersController;
 
 Route::get('server-time', function () {
     return date('Y-m-d H:i:s');

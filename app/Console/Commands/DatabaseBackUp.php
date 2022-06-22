@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use Exception;
 use Illuminate\Console\Command;
 
 class DatabaseBackUp extends Command
@@ -56,7 +57,7 @@ class DatabaseBackUp extends Command
                 $fileLast7Day = storage_path("app/backup/") . $last7Days . ".gz";
                 if (file_exists($fileLast7Day)) unlink($fileLast7Day);
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             print_r($e);
         }
     }

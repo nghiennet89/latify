@@ -39,7 +39,7 @@
         </div>
       </div>
 
-      <v-btn href="/admin" target="_blank" color="primary" dense outlined style="margin-right: 1rem;" class="hidden-sm-and-down">
+      <v-btn class="hidden-sm-and-down" color="primary" dense href="/admin" outlined style="margin-right: 1rem;" target="_blank">
         {{ authenticatedUser ? 'Client Area' : 'Login' }}
       </v-btn>
 

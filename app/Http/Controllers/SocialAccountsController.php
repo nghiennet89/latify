@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\SocialAccountRepository;
 use App\Services\UserServices;
-use function Psy\debug;
+use App\Repositories\SocialAccountRepository;
 
 /**
  * Class SocialAccountsController.

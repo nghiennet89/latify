@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\HookServices;
+use Exception;
 use GuzzleHttp\Client;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller as BaseController;
+use App\Services\HookServices;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Controller extends BaseController
 {
@@ -30,7 +31,7 @@ class Controller extends BaseController
             $content = $res->getBody()->getContents();
             Cache::put(md5($url), $content, now()->addSeconds(env('SSR_CACHE_TIME')));
             return $content;
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return view('index');
         }
     }

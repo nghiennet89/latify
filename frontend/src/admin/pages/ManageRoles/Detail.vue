@@ -1,12 +1,12 @@
 <template>
-  <v-card :elevation="0" tile class="mx-auto pa-5">
+  <v-card :elevation="0" class="mx-auto pa-5" tile>
     <v-card-title class="mx-0 px-0">
       <span>Detail Role</span>
       <v-spacer></v-spacer>
       <v-btn color="primary" outlined @click="updateScope">Save</v-btn>
     </v-card-title>
     <v-divider></v-divider>
-    <v-row no-gutters justify="space-between">
+    <v-row justify="space-between" no-gutters>
       <v-divider vertical></v-divider>
       <v-col cols="3">
         <v-card-subtitle>
@@ -22,13 +22,13 @@
       <v-divider vertical></v-divider>
     </v-row>
     <v-divider></v-divider>
-    <v-row no-gutters justify="space-between">
+    <v-row justify="space-between" no-gutters>
       <v-divider vertical></v-divider>
-      <v-col cols="3" class="pl-2">
+      <v-col class="pl-2" cols="3">
         <v-list>
           <v-list-item-group color="primary">
-            <v-list-item v-for="(item, i) in scopeGroups" :key="i" @click="selectedGroup = item"
-                         :class="selectedGroup === item ? 'v-item--active v-list-item--active' : ''">
+            <v-list-item v-for="(item, i) in scopeGroups" :key="i" :class="selectedGroup === item ? 'v-item--active v-list-item--active' : ''"
+                         @click="selectedGroup = item">
               <v-list-item-content>
                 <v-list-item-title v-text="'Group ' + item"></v-list-item-title>
               </v-list-item-content>
@@ -45,7 +45,7 @@
           <v-row v-else no-gutters>
             <template v-for="(scope,idx) in listScope">
               <v-col v-show="scope.isDisplay" :key="idx">
-                <v-checkbox d-table-cell class="mx-3 text-no-wrap" :label="scope.name" v-model="scope.isChecked"/>
+                <v-checkbox v-model="scope.isChecked" :label="scope.name" class="mx-3 text-no-wrap" d-table-cell/>
               </v-col>
             </template>
 

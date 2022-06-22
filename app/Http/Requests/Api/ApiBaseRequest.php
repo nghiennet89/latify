@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Api;
 
-use App\Http\Requests\Common\ApiFormRequestTrait;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Common\ApiFormRequestTrait;
 
 class ApiBaseRequest extends FormRequest
 {

@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Api\ApiRolesController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ApiRolesController;
 
 Route::group(['middleware' => ['auth:api', 'verified']], function () {
     Route::post('/set-scopes', [ApiRolesController::class, 'setScopes'])->middleware('scope:roles-set-scopes');

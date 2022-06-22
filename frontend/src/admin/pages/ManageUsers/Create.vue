@@ -3,19 +3,19 @@
     <v-card-title class="mx-0 px-0">Create new user</v-card-title>
     <v-row>
       <v-col cols="6">
-        <v-text-field dense outlined label="Name" v-model="newUser.name"/>
+        <v-text-field v-model="newUser.name" dense label="Name" outlined/>
       </v-col>
       <v-col cols="6">
-        <v-text-field dense outlined label="Email" type="email" v-model="newUser.email"/>
+        <v-text-field v-model="newUser.email" dense label="Email" outlined type="email"/>
       </v-col>
       <v-col cols="6">
-        <v-text-field dense outlined label="Password" type="password" v-model="newUser.password"/>
+        <v-text-field v-model="newUser.password" dense label="Password" outlined type="password"/>
       </v-col>
       <v-col cols="6">
-        <v-text-field dense outlined label="Re-type Password" type="password" v-model="newUser.password_conf"/>
+        <v-text-field v-model="newUser.password_conf" dense label="Re-type Password" outlined type="password"/>
       </v-col>
       <v-col cols="6">
-        <v-select v-model="newUser.role_id" :items="roles" item-text="name" item-value="id" label="Role" outlined dense></v-select>
+        <v-select v-model="newUser.role_id" :items="roles" dense item-text="name" item-value="id" label="Role" outlined></v-select>
       </v-col>
     </v-row>
     <v-card-actions class="mx-0 pa-0">

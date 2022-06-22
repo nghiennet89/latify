@@ -1,10 +1,10 @@
 <template>
-  <v-navigation-drawer :value="navbarShow" app class="menu-box" :class="themeDark ? 'menu-dark' : 'menu-light'" fixed width="275"
+  <v-navigation-drawer :class="themeDark ? 'menu-dark' : 'menu-light'" :value="navbarShow" app class="menu-box" fixed width="275"
                        @input="stateNavbarShow">
     <v-app-bar v-if="navbarLogo" :dense="toolbarDense" class="align-center" style="background: rgba(128,128,128,0.35);">
       <v-toolbar-title style="display: inline-table;">
-        <v-avatar size="32px" tile class="px-1">
-          <img alt="VVA" :src="require('~/img/icons/vuetify.svg')" width="32">
+        <v-avatar class="px-1" size="32px" tile>
+          <img :src="require('~/img/icons/vuetify.svg')" alt="VVA" width="32">
         </v-avatar>
       </v-toolbar-title>
       <v-toolbar-title style="width: 100%">

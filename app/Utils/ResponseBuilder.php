@@ -2,8 +2,8 @@
 
 namespace App\Utils;
 
-use App\Exceptions\ApiException;
 use Exception;
+use App\Exceptions\ApiException;
 
 class ResponseBuilder
 {
@@ -12,6 +12,21 @@ class ResponseBuilder
     public static function SuccessCreate($data = null)
     {
         return self::Success($data, __('data.create.ok'));
+    }
+
+    public static function Success($data = null, $message = '')
+    {
+        return self::build($data, $message);
+    }
+
+    public static function build($data = null, $message = '', $error = false, $code = 200)
+    {
+        $res = [
+            'error'   => $error,
+            'message' => $message,
+            'data'    => $data,
+        ];
+        return response()->json($res, $code);
     }
 
     public static function SuccessUpdate($data = null)
@@ -34,6 +49,11 @@ class ResponseBuilder
         return self::Fail(__('data.get.ng'), $errorCode);
     }
 
+    public static function Fail($message = '', $errorCode = 500)
+    {
+        return self::build(null, $message, true, $errorCode);
+    }
+
     public static function FailCreate($errorCode = 500)
     {
         return self::Fail(__('data.create.ng'), $errorCode);
@@ -47,26 +67,6 @@ class ResponseBuilder
     public static function FailDelete($errorCode = 500)
     {
         return self::Fail(__('data.delete.ng'), $errorCode);
-    }
-
-    public static function Fail($message = '', $errorCode = 500)
-    {
-        return self::build(null, $message, true, $errorCode);
-    }
-
-    public static function Success($data = null, $message = '')
-    {
-        return self::build($data, $message);
-    }
-
-    public static function build($data = null, $message = '', $error = false, $code = 200)
-    {
-        $res = [
-            'error'   => $error,
-            'message' => $message,
-            'data'    => $data,
-        ];
-        return response()->json($res, $code);
     }
 
     public static function HandleException(Exception $exception)

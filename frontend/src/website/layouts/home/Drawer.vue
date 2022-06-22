@@ -25,7 +25,7 @@
           <v-list-item-title v-text="name"/>
         </v-list-item-content>
       </v-list-item>
-      <v-list-item @click="goToAdmin" color="primary">
+      <v-list-item color="primary" @click="goToAdmin">
         <v-list-item-content>
           <v-list-item-title v-text="authenticatedUser ? 'Client Area' : 'Login'"/>
         </v-list-item-content>

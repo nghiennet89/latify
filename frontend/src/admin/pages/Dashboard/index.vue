@@ -17,7 +17,7 @@
           <v-btn color="info" outlined @click="getUnreadNotification"> Get Unread Notification</v-btn>
         </v-col>
       </v-row>
-      <v-card-text style="white-space: pre-line" class="align-content-start">{{ actionContent }}</v-card-text>
+      <v-card-text class="align-content-start" style="white-space: pre-line">{{ actionContent }}</v-card-text>
     </v-container>
   </div>
 </template>

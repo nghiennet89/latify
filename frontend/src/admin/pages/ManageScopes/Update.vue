@@ -3,13 +3,13 @@
     <v-card-title class="mx-0 px-0">Update Scope</v-card-title>
     <v-row>
       <v-col cols="6">
-        <v-text-field dense outlined label="Name" v-model="item.name"/>
+        <v-text-field v-model="item.name" dense label="Name" outlined/>
       </v-col>
       <v-col cols="6">
-        <v-text-field dense outlined label="Group" v-model="item.group"/>
+        <v-text-field v-model="item.group" dense label="Group" outlined/>
       </v-col>
       <v-col cols="6">
-        <v-text-field dense outlined label="Title" v-model="item.title"/>
+        <v-text-field v-model="item.title" dense label="Title" outlined/>
       </v-col>
     </v-row>
     <v-card-actions class="mx-0 pa-0">

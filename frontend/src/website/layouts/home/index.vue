@@ -1,6 +1,6 @@
 <template>
   <v-app>
-<!--    <home-system-bar />-->
+    <!--    <home-system-bar />-->
 
     <home-app-bar/>
 
