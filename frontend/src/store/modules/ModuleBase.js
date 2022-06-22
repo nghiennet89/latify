@@ -162,7 +162,6 @@ export default (itemSchema, resourceName) => {
         let params = buildQuery(searchParams);
         let res = await axios.get('/' + resourceName, {params: params});
         let listItems = res.status === 200 && res.data && res.data.data ? res.data.data : [];
-        if (parseInt(params.limit) === -1) listItems = res.status === 200 && res.data ? res.data : [];
         let meta = res.status === 200 && res.data && res.data.meta ? res.data.meta : {};
         let pagination = meta.pagination ? meta.pagination : {
           count: listItems.length,
