@@ -31,26 +31,6 @@ class ScopeRepositoryEloquent extends BaseRepository implements ScopeRepository
     }
 
     /**
-     * Specify Validator class name
-     *
-     * @return mixed
-     */
-    public function validator()
-    {
-        return DefaultValidator::class;
-    }
-
-    /**
-     * Specify Presenter class name
-     *
-     * @return mixed
-     */
-    public function presenter()
-    {
-        return DefaultPresenter::class;
-    }
-
-    /**
      * Boot up the repository, pushing criteria
      */
     public function boot()

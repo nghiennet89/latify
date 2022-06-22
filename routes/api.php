@@ -12,6 +12,7 @@
 */
 
 
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\Api\ApiUsersController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +36,10 @@ Route::group(['middleware' => ['auth:api', 'verified']], function () {
         Route::any('sample-event', [ApiUsersController::class, 'sampleEvent']);
     });
 });
+
+//handle hook
+Route::any('/handle-hook/{secretKey}', [Controller::class, 'handleHook']);
+
 //load list resources
 $listResourceFiles = scandir(base_path('routes/resources/'));
 foreach ($listResourceFiles as $resourceFile) {

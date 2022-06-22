@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Requests\Api\RoleCreateRequest;
-use App\Http\Requests\Api\RoleSetScopeRequest;
-use App\Http\Requests\Api\RoleUpdateRequest;
-use App\Presenters\DefaultPresenter;
-use App\Repositories\RoleRepository;
+use App\Utils\ResponseBuilder;
 use App\Services\RoleServices;
-use App\Validators\DefaultValidator;
-use App\Validators\RoleValidator;
+use App\Repositories\RoleRepository;
+use App\Http\Requests\Api\RoleCreateRequest;
+use App\Http\Requests\Api\RoleUpdateRequest;
+use App\Http\Requests\Api\RoleSetScopeRequest;
 
 /**
  * Class RolesController.
@@ -37,6 +35,7 @@ class ApiRolesController extends ApiBaseController
     {
         $roleId = $request->input('role_id');
         $listScopes = $request->input('scope_ids');
-        return $this->roleServices->setScopes($roleId, $listScopes);
+        $role = $this->roleServices->setScopes($roleId, $listScopes);
+        return ResponseBuilder::SuccessUpdate($role);
     }
 }

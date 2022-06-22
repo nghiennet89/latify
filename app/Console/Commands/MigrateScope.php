@@ -2,10 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Entities\Role;
-use App\Entities\RoleScopes;
 use App\Entities\Scope;
 use App\Utils\Constants;
+use App\Entities\RoleScopes;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;

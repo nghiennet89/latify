@@ -2,10 +2,10 @@
 
 namespace App\Console\Commands;
 
+use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 
 class InitEntity extends Command
 {
@@ -151,31 +151,32 @@ class InitEntity extends Command
         $repositoryContent = file_get_contents($repositoryFile);
         $repositoryContent = str_replace('use Prettus\Repository\Criteria\RequestCriteria;', 'use App\Criteria\BaseCriteria;', $repositoryContent);
         $repositoryContent = str_replace("\n" . 'use App\Repositories\\' . $entityName . 'Repository;', '', $repositoryContent);
-        $repositoryContent = str_replace('use App\Validators\\' . $entityNameTitle . 'Validator;', 'use App\Presenters\DefaultPresenter;
-use App\Validators\DefaultValidator;', $repositoryContent);
         $repositoryContent = str_replace('RequestCriteria::class', 'BaseCriteria::class', $repositoryContent);
-        $positionToInsert = strlen($repositoryContent) - 2;
-        $repositoryContent = substr($repositoryContent, 0, $positionToInsert) . '
-    /**
-     * Specify Validator class name
-     *
-     * @return mixed
-     */
-    public function validator()
-    {
-        return DefaultValidator::class;
-    }
 
-    /**
-     * Specify Presenter class name
-     *
-     * @return mixed
-     */
-    public function presenter()
-    {
-        return DefaultPresenter::class;
-    }
-}';
+//        $repositoryContent = str_replace('use App\Validators\\' . $entityNameTitle . 'Validator;', 'use App\Presenters\DefaultPresenter;
+//use App\Validators\DefaultValidator;', $repositoryContent);
+//        $positionToInsert = strlen($repositoryContent) - 2;
+//        $repositoryContent = substr($repositoryContent, 0, $positionToInsert) . '
+//    /**
+//     * Specify Validator class name
+//     *
+//     * @return mixed
+//     */
+//    public function validator()
+//    {
+//        return DefaultValidator::class;
+//    }
+//
+//    /**
+//     * Specify Presenter class name
+//     *
+//     * @return mixed
+//     */
+//    public function presenter()
+//    {
+//        return DefaultPresenter::class;
+//    }
+//}';
 
         //Add searchable
         $this->listSearchableFields = [];
@@ -229,7 +230,7 @@ use App\Validators\DefaultValidator;', $repositoryContent);
         $entityParamsSearch = "\r\n";
         $entityTblHeaders = "\r\n";
         foreach ($fillable as $attributeName) {
-            if(strlen(trim($attributeName)) < 1) continue;
+            if (strlen(trim($attributeName)) < 1) continue;
             $attributeTitleName = str_replace('_', '', ucwords($attributeName, '_'));
             $entityFieldsInput .= '      <v-col cols="6"><v-text-field dense outlined label="' . $attributeTitleName . '" v-model="item.' . $attributeName . '"/></v-col>' . "\r\n";
             $entityTblHeaders .= "        {
@@ -238,7 +239,7 @@ use App\Validators\DefaultValidator;', $repositoryContent);
         }," . "\r\n";
         }
         foreach ($this->listSearchableFields as $attributeName => $searchType) {
-            if(strlen(trim($attributeName)) < 1) continue;
+            if (strlen(trim($attributeName)) < 1) continue;
             $attributeTitleName = str_replace('_', '', ucwords($attributeName, '_'));
             $entityUiSearch .= '        <v-text-field dense outlined @keyup.enter="doSearch" class="mr-2" label="Search ' . $attributeTitleName . '"
                       v-model="searchFields.' . $attributeName . '.value"/>' . "\r\n";

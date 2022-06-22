@@ -6,7 +6,7 @@ use App\Transformers\DefaultTransformer;
 use Prettus\Repository\Presenter\FractalPresenter;
 
 /**
- * Class UserPresenter.
+ * Class DefaultPresenter.
  *
  * @package namespace App\Presenters;
  */

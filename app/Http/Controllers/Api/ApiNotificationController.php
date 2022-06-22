@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Repositories\NotificationRepository;
-use App\Utils\ResponseBuilder;
 use Illuminate\Http\Request;
+use App\Utils\ResponseBuilder;
 use Illuminate\Support\Facades\Auth;
+use App\Repositories\NotificationRepository;
 
 /**
  * Class RolesController.

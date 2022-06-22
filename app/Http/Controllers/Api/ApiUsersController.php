@@ -3,21 +3,21 @@
 namespace App\Http\Controllers\Api;
 
 use App\Events\BaseEvent;
-use App\Http\Requests\Api\UserAddRoleRequest;
-use App\Http\Requests\Api\UserChangePasswordRequest;
-use App\Http\Requests\Api\UserCreateRequest;
-use App\Http\Requests\Api\UserRegisterRequest;
-use App\Http\Requests\Api\UserUpdateRequest;
-use App\Notifications\BaseBroadcast;
-use App\Repositories\UserRepository;
+use Illuminate\Http\Request;
 use App\Services\UserServices;
 use App\Utils\ResponseBuilder;
+use Lcobucci\JWT\Configuration;
 use App\Validators\UserValidator;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use App\Notifications\BaseBroadcast;
+use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Lcobucci\JWT\Configuration;
+use App\Http\Requests\Api\UserCreateRequest;
+use App\Http\Requests\Api\UserUpdateRequest;
+use App\Http\Requests\Api\UserAddRoleRequest;
+use App\Http\Requests\Api\UserRegisterRequest;
+use App\Http\Requests\Api\UserChangePasswordRequest;
 
 class ApiUsersController extends ApiBaseController
 {

@@ -32,9 +32,6 @@ Route::get('social-login/{driver}/callback', [SocialAccountsController::class, '
 
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-//handle hook
-Route::any('/handle-hook/{secretKey}', [Controller::class, 'handleHook']);
-
 // IMPORTANT : THESE ROUTER MUST BE END OF LARAVEL ROUTER (to catch all vue-router)
 //Base view
 Route::get('/admin/{any?}', [Controller::class, 'admin'])->name('admin');

@@ -47,9 +47,10 @@ export default {
     }
   },
   methods: {
-    onClickRow($event, row) {
+    onDbClickRow($event, row) {
       console.log('$event', $event);
       console.log('row', row);
+      this.onClickEdit(row);
     },
 
     onClickNew() {

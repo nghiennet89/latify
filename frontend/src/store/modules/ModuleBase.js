@@ -28,7 +28,7 @@ export const buildQuery = (params) => {
     if (typeof search[key] === 'string') {
       searchValues.push(key + ':' + search[key])
       searchTypes.push(key + ':=')
-    } else if (search[key].value !== '' && search[key].type) {
+    } else if (search[key].value !== '' && search[key].value != null && search[key].type) {
       searchValues.push(key + ':' + search[key].value)
       searchTypes.push(key + ':' + search[key].type)
     }

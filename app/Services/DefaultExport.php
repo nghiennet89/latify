@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Maatwebsite\Excel\Concerns\FromArray;
+use Prettus\Repository\Contracts\RepositoryInterface;
 
 class DefaultExport implements FromArray
 {
@@ -18,9 +19,9 @@ class DefaultExport implements FromArray
      *
      * @param $repository
      */
-    public function __construct($repository)
+    public function __construct(RepositoryInterface $repository)
     {
-        $this->repository = $repository;
+        $this->repository = $repository->skipPresenter();
     }
 
     public function array(): array

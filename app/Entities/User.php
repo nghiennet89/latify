@@ -2,14 +2,14 @@
 
 namespace App\Entities;
 
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Auth\MustVerifyEmail;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Illuminate\Auth\MustVerifyEmail;
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Auth\Passwords\CanResetPassword;
 use Prettus\Repository\Contracts\Transformable;
-use Prettus\Repository\Traits\TransformableTrait;
 use Venturecraft\Revisionable\RevisionableTrait;
+use Prettus\Repository\Traits\TransformableTrait;
 
 /**
  * Class User.
@@ -57,7 +57,8 @@ class User extends BaseEntity
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
     /**

@@ -32,27 +32,6 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
     }
 
     /**
-     * Specify Validator class name
-     *
-     * @return mixed
-     */
-    public function validator()
-    {
-
-        return UserValidator::class;
-    }
-
-    /**
-     * Specify Presenter class name
-     *
-     * @return mixed
-     */
-    public function presenter()
-    {
-        return DefaultPresenter::class;
-    }
-
-    /**
      * Boot up the repository, pushing criteria
      */
     public function boot()

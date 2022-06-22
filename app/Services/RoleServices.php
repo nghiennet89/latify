@@ -2,12 +2,11 @@
 
 namespace App\Services;
 
-use App\Repositories\RoleRepository;
-use App\Entities\RoleScopes;
 use App\Entities\Scope;
-use App\Repositories\RoleScopesRepository;
+use App\Exceptions\ApiException;
 use Illuminate\Support\Facades\DB;
-use App\Utils\ResponseBuilder;
+use App\Repositories\RoleRepository;
+use App\Repositories\RoleScopesRepository;
 
 /**
  * Class UserService
@@ -29,8 +28,8 @@ class RoleServices
      */
     public function __construct(RoleRepository $roleRepository, RoleScopesRepository $roleScopesRepository)
     {
-        $this->roleRepository = $roleRepository;
-        $this->roleScopesRepository = $roleScopesRepository;
+        $this->roleRepository = $roleRepository->skipPresenter();
+        $this->roleScopesRepository = $roleScopesRepository->skipPresenter();
     }
 
     public function setScopes($roleId, $scopeIds)
@@ -68,11 +67,10 @@ class RoleServices
                 }
             }
             DB::commit();
-            $role = $this->roleRepository->with(['roleScopes', 'roleScopes.scope'])->find($roleId);
-            return ResponseBuilder::SuccessUpdate($role);
+            return $this->roleRepository->with(['roleScopes', 'roleScopes.scope'])->find($roleId);
         } catch (\Exception $e) {
             DB::rollBack();
-            return ResponseBuilder::Fail($e->getMessage());
+            throw new ApiException('Error while setting scopes for role ' . $roleId . ':' . $e->getMessage());
         }
     }
 

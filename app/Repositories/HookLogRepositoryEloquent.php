@@ -25,8 +25,6 @@ class HookLogRepositoryEloquent extends BaseRepository implements HookLogReposit
         return HookLog::class;
     }
 
-    
-
     /**
      * Boot up the repository, pushing criteria
      */
@@ -34,5 +32,5 @@ class HookLogRepositoryEloquent extends BaseRepository implements HookLogReposit
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
+
 }

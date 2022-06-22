@@ -2,23 +2,24 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Exceptions\ApiException;
-use App\Http\Controllers\Controller;
+use Exception;
+use Illuminate\Http\Request;
+use App\Utils\ResponseBuilder;
 use App\Services\DefaultExport;
 use App\Services\DefaultImport;
-use App\Utils\ResponseBuilder;
-use Exception;
+use App\Exceptions\ApiException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Controller;
+use App\Presenters\DefaultPresenter;
 use Maatwebsite\Excel\Facades\Excel;
-use Maatwebsite\Excel\Validators\ValidationException;
-use Prettus\Repository\Contracts\RepositoryInterface;
+use Prettus\Validator\LaravelValidator;
+use Illuminate\Support\Facades\Validator;
 use Prettus\Repository\Presenter\FractalPresenter;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use Prettus\Validator\LaravelValidator;
+use Maatwebsite\Excel\Validators\ValidationException;
+use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
  * Class RolesController.
@@ -61,16 +62,19 @@ class ApiBaseController extends Controller
      * @param $updateRequest
      */
     public function __construct(RepositoryInterface $repository,
-                                                    $createRequest = null,
-                                                    $updateRequest = null,
-                                LaravelValidator    $validator = null,
-                                FractalPresenter    $presenter = null)
+                                $createRequest = null,
+                                $updateRequest = null,
+                                LaravelValidator $validator = null,
+                                FractalPresenter $presenter = null)
     {
-        if (!$validator) $validator = app('App\Validators\DefaultValidator');
         $this->repository = $repository;
-        $this->validator = $validator ?: $this->repository->validator();
-        $this->presenter = $presenter ?: $this->repository->presenter();
-        if ($presenter) $this->repository->setPresenter($presenter);
+        if (!$presenter) $presenter = $this->repository->presenter() ?? DefaultPresenter::class;
+        $this->presenter = $presenter;
+        $this->repository->setPresenter($presenter);
+
+        if (!$validator) $validator = $this->repository->validator() ?? app('App\Validators\DefaultValidator');
+        $this->validator = $validator;
+
         $this->createRequest = $createRequest;
         $this->updateRequest = $updateRequest;
 
@@ -170,7 +174,7 @@ class ApiBaseController extends Controller
         }
 
         try {
-            if ($this->validator) $this->validator->with($input)->passesOrFail(ValidatorInterface::RULE_UPDATE);
+            $this->validator->with($input)->passesOrFail(ValidatorInterface::RULE_UPDATE);
             unset($input['id']);
             $item = $this->repository->update($input, $id);
             return ResponseBuilder::SuccessUpdate($item);
