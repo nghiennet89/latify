@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\HookServices;
 use GuzzleHttp\Client;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -38,5 +39,12 @@ class Controller extends BaseController
     {
         $personalAccessToken = session()->get('personalAccessToken');
         return view('admin', compact('personalAccessToken'));
+    }
+
+    public function handleHook(Request $request, $secretKey)
+    {
+        if (env('HOOK_SECRET_KEY') !== $secretKey) return response()->json('unauthorized');
+        $data = $request->all();
+        HookServices::handleHook($data);
     }
 }

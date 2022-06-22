@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\HookLogRepository;
+use App\Repositories\HookLogRepositoryEloquent;
 use App\Repositories\NotificationRepository;
 use App\Repositories\NotificationRepositoryEloquent;
 use App\Repositories\RoleRepository;
@@ -41,6 +43,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(RoleScopesRepository::class, RoleScopesRepositoryEloquent::class);
         $this->app->bind(ScopeRepository::class, ScopeRepositoryEloquent::class);
         $this->app->bind(NotificationRepository::class, NotificationRepositoryEloquent::class);
+        $this->app->bind(HookLogRepository::class, HookLogRepositoryEloquent::class);
         //:end-bindings:
     }
 }
