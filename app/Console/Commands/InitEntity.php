@@ -255,6 +255,7 @@ class InitEntity extends Command
             '_ENTITY_TBL_HEADERS_'       => $entityTblHeaders,
             '_PLURAL_ENTITY_TITLE_TEXT_' => $pluralEntityNameTitleText,
             '_PLURAL_ENTITY_TITLE_'      => $pluralEntityNameTitle,
+            '_PLURAL_ENTITY_SLUG_'       => str_replace('_', '-', $pluralEntityName),
             '_PLURAL_ENTITY_'            => $pluralEntityName,
             '_ENTITY_TITLE_'             => $entityNameTitle,
             '_ENTITY_'                   => $entityName,

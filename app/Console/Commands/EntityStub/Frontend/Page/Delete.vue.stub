@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title>Do you want to delete {{ idsToDelete.length > 1 ? 'these' : 'this' }} _ENTITY_?</v-card-title>
+    <v-card-title>Do you want to delete {{ idsToDelete.length > 1 ? 'these' : 'this' }} _ENTITY_TITLE_TEXT_?</v-card-title>
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn color="secondary" text @click="onCancel">Cancel</v-btn>

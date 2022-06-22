@@ -32,13 +32,10 @@
     - open mysql, truncate table oauth_clients
     - run command: php artisan passport:install
 
-## Sample for auto init front-end, backend of entity "Post"
+## Sample for auto init front-end, backend of entity "UserPost"
 
-- php artisan make:entity post
-    - No
-    - yes
-    - No
-- php artisan command:init-entity post
+- php artisan make:entity UserPost
+- php artisan command:init-entity user_post
 - php artisan command:migrate-scopes
 
 ## webpack config on intellij idea:
