@@ -42,9 +42,9 @@
         </template>
 
         <template v-slot:item.actions="props">
-          <v-icon small class="mr-2">mdi-view-list</v-icon>
-          <v-icon small @click="onClickEdit(props)" class="mr-2">mdi-pencil</v-icon>
-          <v-icon small @click="onClickDelete(props)">mdi-delete</v-icon>
+          <v-icon small color="primary" class="mr-2">mdi-view-list</v-icon>
+          <v-icon small color="secondary" @click="onClickEdit(props)" class="mr-2">mdi-pencil</v-icon>
+          <v-icon small color="error" @click="onClickDelete(props)">mdi-delete</v-icon>
         </template>
       </v-data-table>
     </v-card>

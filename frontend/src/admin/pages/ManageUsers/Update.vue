@@ -36,24 +36,22 @@ export default {
   },
   methods: {
     ...mapActions({
-      updateItem: 'user/update',
-      getAllRoles: 'role/all'
+      updateItem: 'user/update'
     }),
     processUpdate() {
       this.updateItem(this.item).then(() => {
         this.onUpdated();
+        this.item = {};
       });
     }
-  },
-  mounted() {
-    if (this.roles.length < 1) this.getAllRoles();
   },
   watch: {
     selectedItem: {
       handler() {
-        if (this.selectedItem) this.item = this.selectedItem;
+        if (this.selectedItem) this.item = this.cloneDeep(this.selectedItem);
       },
-      deep: true
+      deep: true,
+      immediate: true
     }
   }
 }

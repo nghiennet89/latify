@@ -29,6 +29,7 @@ export default {
     processAdd() {
       this.createItem(this.item).then(() => {
         this.onCreated();
+        this.item = {};
       });
     }
   }

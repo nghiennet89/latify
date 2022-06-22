@@ -28,9 +28,10 @@ export default {
   watch: {
     selectedItem: {
       handler() {
-        if(this.selectedItem) this.item = this.selectedItem;
+        if (this.selectedItem) this.item = this.selectedItem;
       },
-      deep: true
+      deep: true,
+      immediate: true
     }
   }
 }

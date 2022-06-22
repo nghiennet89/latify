@@ -36,16 +36,13 @@ export default {
   methods: {
     ...mapActions({
       createItem: 'scope/create',
-      getAllRoles: 'role/all'
     }),
     processAdd() {
       this.createItem(this.newItem).then(() => {
         this.onCreated();
+        this.item = {};
       });
     }
   },
-  mounted() {
-    this.getAllRoles();
-  }
 }
 </script>

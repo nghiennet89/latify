@@ -1,5 +1,7 @@
 import {mapActions} from 'vuex'
 import CONSTANTS from '@/config/constants'
+import cloneDeep from 'clone-deep'
+
 export default {
   data: () => ({
     CONSTANTS: CONSTANTS
@@ -25,6 +27,7 @@ export default {
       }
       return undefined
     },
+    cloneDeep: cloneDeep
   },
   created() {
     if (!window.VueComp) window.VueComp = {

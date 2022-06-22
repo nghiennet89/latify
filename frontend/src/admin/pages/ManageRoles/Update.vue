@@ -34,15 +34,17 @@ export default {
     processUpdate() {
       this.updateItem(this.item).then(() => {
         this.onUpdated();
+        this.item = {}
       });
     }
   },
   watch: {
     selectedItem: {
       handler() {
-        if(this.selectedItem) this.item = this.selectedItem;
+        if (this.selectedItem) this.item = this.cloneDeep(this.selectedItem);
       },
-      deep: true
+      deep: true,
+      immediate: true
     }
   }
 }

@@ -13,6 +13,7 @@
 </template>
 <script>
 import {mapActions} from 'vuex'
+import cloneDeep from 'clone-deep';
 
 export default {
   name: 'Update_ENTITY_TITLE_',
@@ -27,13 +28,14 @@ export default {
     processUpdate() {
       this.updateItem(this.item).then(() => {
         this.onUpdated();
+        this.item = {};
       });
     }
   },
   watch: {
     selectedItem: {
       handler() {
-        if (this.selectedItem) this.item = this.selectedItem;
+        if (this.selectedItem) this.item = this.cloneDeep(this.selectedItem);
       },
       deep: true,
       immediate: true

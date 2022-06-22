@@ -130,7 +130,8 @@ export default {
           return s
         });
       },
-      deep: true
+      deep: true,
+      immediate: true
     }
   },
 
