@@ -1,5 +1,3 @@
-const VueCookies = require('vue-cookies');
-
 module.exports = function () {
   return {
     VueAuth: {
@@ -15,20 +13,17 @@ module.exports = function () {
             //handle personal_access_token from social login
             let personalAccessToken = window.localStorage.getItem(window.location.hostname + '_personal_access_token');
             if (!personalAccessToken) return
-            window.localStorage.removeItem(window.location.hostname + '_personal_access_token');
-            VueCookies.set(window.location.hostname + '_personal_access_token', personalAccessToken, new Date(new Date().getTime() + 365 * 24 * 60 * 60 * 1000))
-            VueCookies.set(window.location.hostname + '_rememberMe', true, new Date(new Date().getTime() + 365 * 24 * 60 * 60 * 1000))
-            VueCookies.remove(window.location.hostname + '_refresh_token');
+            window.localStorage.setItem(window.location.hostname + '_rememberMe', true)
+            window.localStorage.removeItem(window.location.hostname + '_refresh_token');
             return personalAccessToken
           }
 
           let token = res.data ? res.data.access_token : null
           if (token) {
-            let expiresIn = parseInt(res.data.expired_in)
-            VueCookies.set(window.location.hostname + '_access_token', res.data.access_token, new Date(new Date().getTime() + expiresIn))
-            VueCookies.set(window.location.hostname + '_refresh_token', res.data.refresh_token, new Date(new Date().getTime() + expiresIn))
-            VueCookies.set(window.location.hostname + '_token_type', res.data.token_type, new Date(new Date().getTime() + expiresIn))
-            VueCookies.set(window.location.hostname + '_expires_in', res.data.expires_in, new Date(new Date().getTime() + expiresIn))
+            window.localStorage.setItem(window.location.hostname + '_access_token', res.data.access_token);
+            window.localStorage.setItem(window.location.hostname + '_refresh_token', res.data.refresh_token);
+            window.localStorage.setItem(window.location.hostname + '_token_type', res.data.token_type);
+            window.localStorage.setItem(window.location.hostname + '_expires_in', res.data.expires_in);
             try {
               if (window._VueAdminApp) {
                 window._VueAdminApp.$auth.options.refreshData.enabled = true
@@ -69,11 +64,10 @@ module.exports = function () {
         url: '../oauth/token',
         method: 'POST',
         //enabled: !window.localStorage.getItem(window.location.hostname + '_personal_access_token') && !VueCookies.isKey(window.location.hostname + '_personal_access_token'),
-        //enabled: VueCookies.isKey(window.location.hostname + '_refresh_token'),
-        enabled: false,
+        enabled: window.localStorage.getItem(window.location.hostname + '_refresh_token'),
         interval: 15, //minutes
         data: {
-          refresh_token: VueCookies.isKey(window.location.hostname + '_refresh_token') ? VueCookies.get(window.location.hostname + '_refresh_token') : 'no-token',
+          refresh_token: window.localStorage.getItem(window.location.hostname + '_refresh_token'),
           grant_type: 'refresh_token',
           client_id: process.env.VUE_APP_PUBLIC_CLIENT_ID,
           client_secret: process.env.VUE_APP_PUBLIC_CLIENT_SECRET,
