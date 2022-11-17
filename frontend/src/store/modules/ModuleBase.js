@@ -193,8 +193,8 @@ export default (itemSchema, resourceName) => {
       getById: async ({commit}, requestData) => {
         let params = requestData.params; //to provide with & withCount
         // http://domain.com/api/resource_name/1?with=relation1;relation2&withcount=relation3;relation4
-        let res = await axios.get('/' + resourceName + '/' + requestData.id, {params: params});
-        let item = res.status === 200 && res.data ? res.data : null;
+        let res = await axios.get('/' + resourceName + '/' + requestData.id, {params: buildQuery(params)});
+        let item = res.status === 200 && res.data ? res.data.data : null;
         if (!item) return null;
         //find item in list state and update it
         await commit('UPSERT', item);
