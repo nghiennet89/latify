@@ -1,0 +1,7 @@
+export default [
+    {
+      path: '/manage-_PLURAL_ENTITY_SLUG_',
+      component: () => import('@/admin/pages/Manage_PLURAL_ENTITY_TITLE_'),
+      name: 'Manage_PLURAL_ENTITY_TITLE_',
+    }
+]

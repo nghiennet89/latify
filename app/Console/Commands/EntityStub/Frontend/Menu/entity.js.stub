@@ -1,0 +1,7 @@
+export default [
+    {
+      name: 'Manage_PLURAL_ENTITY_TITLE_',
+      title: 'Manage _PLURAL_ENTITY_TITLE_TEXT_',
+      icon: 'mdi-axis',
+    }
+]
