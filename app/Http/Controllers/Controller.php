@@ -44,7 +44,7 @@ class Controller extends BaseController
 
     public function handleHook(Request $request, $secretKey)
     {
-        if (env('HOOK_SECRET_KEY') !== $secretKey) return response()->json('unauthorized');
+        if (env('APP_KEY') !== $secretKey) return response()->json('unauthorized');
         $data = $request->all();
         HookServices::handleHook($data);
     }
