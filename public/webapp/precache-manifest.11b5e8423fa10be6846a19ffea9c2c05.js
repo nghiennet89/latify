@@ -1,14 +1,14 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "552427dccda437e3c0dd0dab9961880b",
+    "revision": "c3b0c16578f1e9127d08111ae954175b",
     "url": "/webapp/..\\..\\resources\\views\\admin.blade.php"
   },
   {
-    "revision": "301b302649ff23eca32728d92fdcfbdc",
+    "revision": "694127be196f7383f3bc61adec0d8d68",
     "url": "/webapp/..\\..\\resources\\views\\index.blade.php"
   },
   {
-    "revision": "57607f18c2c2c608cded",
+    "revision": "ce4b10d25fe0ac7667e1",
     "url": "/webapp/css/admin.a182a4ed.css"
   },
   {
@@ -96,11 +96,11 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/webapp/css/chunk-f6042272.68e6a77c.css"
   },
   {
-    "revision": "390286fe29256f94b110",
+    "revision": "134a7b84798ff89bd2c6",
     "url": "/webapp/css/chunk-vendors.5ad4860a.css"
   },
   {
-    "revision": "618c71c4b9cdbbf95bf0",
+    "revision": "80922a0e75b19878d4df",
     "url": "/webapp/css/website.2bf069ff.css"
   },
   {
@@ -392,8 +392,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/webapp/img/vuetify.ef88ed3b.svg"
   },
   {
-    "revision": "57607f18c2c2c608cded",
-    "url": "/webapp/js/admin.9e4d77f0.js"
+    "revision": "ce4b10d25fe0ac7667e1",
+    "url": "/webapp/js/admin.7e1549d3.js"
   },
   {
     "revision": "a25fd70b9f4ca55f5e6d",
@@ -540,8 +540,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/webapp/js/chunk-bedef052.d3a7e0fc.js"
   },
   {
-    "revision": "e66acdf4138376c378b0",
-    "url": "/webapp/js/chunk-common.894c9e52.js"
+    "revision": "5ffd576240e0b0a6d07b",
+    "url": "/webapp/js/chunk-common.3f424152.js"
   },
   {
     "revision": "4cd54392274843c3ae4f",
@@ -556,12 +556,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/webapp/js/chunk-f6042272.3c69fa20.js"
   },
   {
-    "revision": "390286fe29256f94b110",
-    "url": "/webapp/js/chunk-vendors.157fce46.js"
+    "revision": "134a7b84798ff89bd2c6",
+    "url": "/webapp/js/chunk-vendors.503c3ac9.js"
   },
   {
-    "revision": "618c71c4b9cdbbf95bf0",
-    "url": "/webapp/js/website.c4c1c352.js"
+    "revision": "80922a0e75b19878d4df",
+    "url": "/webapp/js/website.643012d5.js"
   },
   {
     "revision": "2ebe0fa5a6097e2248724867f3d78094",
