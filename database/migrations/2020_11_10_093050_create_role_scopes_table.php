@@ -6,7 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 /**
  * Class CreateRoleScopesTable.
  */
-class CreateRoleScopesTable extends Migration
+class CreateRoleScopeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,12 +15,9 @@ class CreateRoleScopesTable extends Migration
      */
     public function up()
     {
-        Schema::create('role_scopes', function (Blueprint $table) {
-            $table->id();
+        Schema::create('role_scope', function (Blueprint $table) {
             $table->integer('role_id');
             $table->integer('scope_id');
-            $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -31,6 +28,6 @@ class CreateRoleScopesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('role_scopes');
+        Schema::drop('role_scope');
     }
 }

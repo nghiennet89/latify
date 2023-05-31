@@ -21,6 +21,9 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('api_key', 4096)->nullable();
+            $table->string('webhook_url', 1024)->nullable();
+            $table->tinyInteger('store_hook_log')->default(0);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

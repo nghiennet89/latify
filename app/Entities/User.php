@@ -49,6 +49,7 @@ class User extends BaseEntity
         'password',
         'api_key',
         'webhook_url',
+        'store_hook_log',
     ];
 
     /**
@@ -93,15 +94,7 @@ class User extends BaseEntity
 
     public function listScopes()
     {
-        $roleScopes = $this->role ? $this->role->roleScopes : null;
-        if (!$roleScopes) return [];
-
-        $scopes = [];
-        foreach ($roleScopes as $roleScope) {
-            $scopename = $roleScope->scope ? $roleScope->scope->name : null;
-            if ($scopename) array_push($scopes, $scopename);
-        }
-        return $scopes;
+        return $this->role->scopes->pluck('name')->toArray();
     }
 
     /**

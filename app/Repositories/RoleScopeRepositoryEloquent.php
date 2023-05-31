@@ -2,19 +2,16 @@
 
 namespace App\Repositories;
 
+use App\Entities\RoleScope;
 use App\Criteria\BaseCriteria;
-use App\Entities\RoleScopes;
-use App\Presenters\DefaultPresenter;
-use App\Validators\DefaultValidator;
-use App\Validators\RoleScopesValidator;
 use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
- * Class RoleScopesRepositoryEloquent.
+ * Class RoleScopeRepositoryEloquent.
  *
  * @package namespace App\Repositories;
  */
-class RoleScopesRepositoryEloquent extends BaseRepository implements RoleScopesRepository
+class RoleScopeRepositoryEloquent extends BaseRepository implements RoleScopeRepository
 {
     /**
      * Specify Model class name
@@ -23,7 +20,7 @@ class RoleScopesRepositoryEloquent extends BaseRepository implements RoleScopesR
      */
     public function model()
     {
-        return RoleScopes::class;
+        return RoleScope::class;
     }
 
     /**

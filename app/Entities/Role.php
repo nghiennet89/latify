@@ -26,9 +26,9 @@ class Role extends BaseEntity implements Transformable
         return $this->hasMany(User::class);
     }
 
-    public function roleScopes()
+    public function scopes()
     {
-        return $this->hasMany(RoleScopes::class);
+        return $this->belongsToMany(Scope::class)->using(RoleScope::class);
     }
 
 }

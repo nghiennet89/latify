@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Api\ApiNotificationController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ApiNotificationController;
 
 Route::group(['middleware' => ['auth:api', 'verified']], function () {
     Route::get('/', [ApiNotificationController::class, 'index']);

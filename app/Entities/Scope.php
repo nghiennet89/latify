@@ -21,8 +21,8 @@ class Scope extends BaseEntity implements Transformable
      */
     protected $fillable = ['name', 'group', 'title', 'description'];
 
-    public function roleScopes()
+    public function roles()
     {
-        return $this->hasMany(RoleScopes::class);
+        return $this->belongsToMany(Role::class)->using(RoleScope::class);
     }
 }

@@ -6,9 +6,9 @@
     <breadcrumbs/>
     <v-spacer/>
     <!--<error-log/>-->
-    <full-screen/>
-    <notification/>
-    <localization/>
+    <full-screen class="mr-2" />
+    <notification class="mr-2" />
+    <localization class="mr-2" />
     <profile/>
   </v-app-bar>
 </template>

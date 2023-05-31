@@ -93,7 +93,7 @@ export default {
       return groups
     },
     listScopesOfCurrentRole() {
-      return this.selectedItem && this.selectedItem.role_scopes ? this.selectedItem.role_scopes.map(r => r.scope) : []
+      return this.selectedItem && this.selectedItem.scopes ? this.selectedItem.scopes.map(r => r.scope) : []
     },
   },
   methods: {

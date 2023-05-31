@@ -2,11 +2,11 @@
 
 namespace App\Services;
 
-use App\Entities\HookLog;
 use App\Entities\User;
+use App\Entities\HookLog;
 use App\Utils\ResponseBuilder;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
 
 /**
  * Class UserService
@@ -30,13 +30,15 @@ class HookServices
         }
         if (!is_array($data)) $data = json_decode(json_encode($data), true);
         $response = Http::post($hookUrl, $data);
-        $hookLog = new HookLog();
-        $hookLog->user_id = $user->id;
-        $hookLog->hook_url = $hookUrl;
-        $hookLog->hook_data = json_encode($data);
-        $hookLog->hook_result = $response->body();
-        $hookLog->status = $response->status();
-        $hookLog->save();
+        if ($user->store_hook_log) {
+            $hookLog = new HookLog();
+            $hookLog->user_id = $user->id;
+            $hookLog->hook_url = $hookUrl;
+            $hookLog->hook_data = json_encode($data);
+            $hookLog->hook_result = $response->body();
+            $hookLog->status = $response->status();
+            $hookLog->save();
+        }
     }
 
     public static function handleHook($data)

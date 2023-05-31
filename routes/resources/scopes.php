@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Api\ApiScopesController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ApiScopesController;
 
 Route::group(['middleware' => ['auth:api', 'verified']], function () {
     Route::get('/export', [ApiScopesController::class, 'export'])->middleware('scope:scopes-read');

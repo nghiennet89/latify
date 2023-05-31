@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use Exception;
 use App\Entities\Scope;
 use App\Utils\Constants;
-use App\Entities\RoleScopes;
+use App\Entities\RoleScope;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -77,7 +77,7 @@ class MigrateScope extends Command
 
         //assign all scope to super admin
         $existingAdminScopes = Scope::query()
-            ->whereIn('id', RoleScopes::query()->select('scope_id')->where('role_id', '=', Constants::ROLES['ADMIN']))
+            ->whereIn('id', RoleScope::query()->select('scope_id')->where('role_id', '=', Constants::ROLES['ADMIN']))
             ->get()->toArray();
         $existingAdminScopes = array_column($existingAdminScopes, 'name');
         DB::beginTransaction();
@@ -96,7 +96,7 @@ class MigrateScope extends Command
                     ]);
                     $this->line('new scope to assign: ' . $existingScope['name']);
                 }
-            if (count($scopesToAssign)) RoleScopes::query()->insert($scopesToAssign);
+            if (count($scopesToAssign)) RoleScope::query()->insert($scopesToAssign);
             DB::commit();
             $this->line('Completed');
         } catch (Exception $e) {

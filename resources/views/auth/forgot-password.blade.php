@@ -7,7 +7,8 @@
         </x-slot>
 
         <div class="mb-4 text-sm text-gray-600">
-            {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+            {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.')
+            }}
         </div>
 
         <!-- Session Status -->
@@ -17,9 +18,9 @@
         <x-auth-validation-errors class="mb-4" :errors="$errors"/>
 
         <form method="POST" action="{{ route('password.email') }}">
-        @csrf
+            @csrf
 
-        <!-- Email Address -->
+            <!-- Email Address -->
             <div>
                 <x-label for="email" :value="__('Email')"/>
 

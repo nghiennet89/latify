@@ -2,11 +2,8 @@
 
 namespace App\Services;
 
-use App\Entities\Scope;
-use App\Exceptions\ApiException;
-use Illuminate\Support\Facades\DB;
 use App\Repositories\RoleRepository;
-use App\Repositories\RoleScopesRepository;
+use App\Repositories\RoleScopeRepository;
 
 /**
  * Class UserService
@@ -19,22 +16,22 @@ class RoleServices
      * @var RoleRepository
      */
     protected $roleRepository;
-    protected $roleScopesRepository;
+    protected $roleScopeRepository;
 
     /**
      * RoleServices constructor.
      *
      * @param RoleRepository $roleRepository
      */
-    public function __construct(RoleRepository $roleRepository, RoleScopesRepository $roleScopesRepository)
+    public function __construct(RoleRepository $roleRepository, RoleScopeRepository $roleScopeRepository)
     {
         $this->roleRepository = $roleRepository->skipPresenter();
-        $this->roleScopesRepository = $roleScopesRepository->skipPresenter();
+        $this->roleScopeRepository = $roleScopeRepository->skipPresenter();
     }
 
     public function setScopes($roleId, $scopeIds)
     {
-        $listCurrentRoleScopes = $this->roleScopesRepository->findWhere([
+        /*$listCurrentRoleScopes = $this->roleScopeRepository->findWhere([
             'role_id' => $roleId,
         ]);
         $listNewScopes = Scope::query()->whereIn('id', $scopeIds)->get();
@@ -71,7 +68,7 @@ class RoleServices
         } catch (\Exception $e) {
             DB::rollBack();
             throw new ApiException('Error while setting scopes for role ' . $roleId . ':' . $e->getMessage());
-        }
+        }*/
     }
 
 }

@@ -89,7 +89,7 @@ class ApiUsersController extends ApiBaseController
     {
         if (!auth()->user()) return ResponseBuilder::FailGet();
         $userId = auth()->user()->id;
-        return $this->repository->with(['role', 'role.roleScopes', 'role.roleScopes.scope'])->find($userId);
+        return $this->repository->with(['role', 'role.scopes'])->find($userId);
     }
 
     /**

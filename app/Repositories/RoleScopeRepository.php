@@ -9,7 +9,7 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  *
  * @package namespace App\Repositories;
  */
-interface RoleScopesRepository extends RepositoryInterface
+interface RoleScopeRepository extends RepositoryInterface
 {
     //
 }

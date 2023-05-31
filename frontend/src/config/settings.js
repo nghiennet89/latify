@@ -17,7 +17,7 @@ module.exports = {
     btn: false,
   },
   theme: {
-    index: 0,
+    index: 2,
     dark: false,
   },
   maxNoticesDisplay: 3

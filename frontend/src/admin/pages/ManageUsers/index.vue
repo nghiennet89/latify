@@ -15,11 +15,11 @@
       <!---->
       <v-spacer></v-spacer>
       <v-layout style="max-width: calc(100% - 250px);" wrap>
-        <v-text-field v-model="searchFields.name.value" class="mr-2" dense label="Search Name" outlined
+        <v-text-field v-model="searchFields.name.value" class="mr-2" dense label="Search Name" outlined style="max-width: 288px"
                       @keyup.enter="doSearch"/>
-        <v-text-field v-model="searchFields.email.value" class="mr-2" dense label="Search Email" outlined
+        <v-text-field v-model="searchFields.email.value" class="mr-2" dense label="Search Email" outlined style="max-width: 288px"
                       @keyup.enter="doSearch"/>
-        <v-autocomplete v-model="searchFields.role_id.value" :items="listSearchRoles" class="mr-2" dense label="Search Role"
+        <v-autocomplete v-model="searchFields.role_id.value" :items="listSearchRoles" class="mr-2" dense label="Search Role" style="max-width: 288px"
                         outlined @keyup.enter="doSearch"/>
       </v-layout>
       <v-btn color="primary" @click="doSearch">

@@ -38,9 +38,9 @@
         </template>
 
         <template v-slot:item.actions="props">
-          <v-icon class="mr-2" small @click="onClickDetail(props)">mdi-view-list</v-icon>
-          <v-icon class="mr-2" small @click="onClickEdit(props)">mdi-pencil</v-icon>
-          <v-icon small @click="onClickDelete(props)">mdi-delete</v-icon>
+          <v-icon class="mr-2" small color="primary" @click="onClickDetail(props)">mdi-view-list</v-icon>
+          <v-icon class="mr-2" small color="secondary" @click="onClickEdit(props)">mdi-pencil</v-icon>
+          <v-icon small color="error" @click="onClickDelete(props)">mdi-delete</v-icon>
         </template>
       </v-data-table>
     </v-card>
@@ -85,7 +85,7 @@ export default {
         },
       },
       querySilent: true,
-      searchWith: 'roleScopes;roleScopes.scope',
+      searchWith: 'scopes',
       tblConfig: {
         header: [
           {
@@ -138,7 +138,7 @@ export default {
     }),
     listItems() {
       return this.items.map(i => {
-        i.countScopes = i.role_scopes ? i.role_scopes.length : 0;
+        i.countScopes = i.scopes ? i.scopes.length : 0;
         return i;
       })
     },
