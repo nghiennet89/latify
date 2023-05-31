@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Repositories\_ENTITY_TITLE_Repository;
 
 /**
- * Class RolesController.
+ * Class Api_PLURAL_ENTITY_TITLE_Controller.
  *
  * @package namespace App\Http\Controllers;
  */

@@ -22,7 +22,7 @@ class CreateHookLogsTable extends Migration
             $table->string('hook_url', 1024);
             $table->longText('hook_data');
             $table->longText('hook_result');
-            $table->tinyInteger('status')->comment('status code');
+            $table->integer('status')->comment('status code');
             $table->timestamps();
         });
     }

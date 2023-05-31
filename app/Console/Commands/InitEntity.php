@@ -16,43 +16,43 @@ class InitEntity extends Command
      */
 
     const FILE_LIST = [
-        'BACKEND'      => [
+        'BACKEND' => [
             'CONTROLLER' => 'app/Console/Commands/EntityStub/Backend/ApiController.php.stub',
 //            'REQUEST_CREATE' => 'app/Console/Commands/EntityStub/Backend/CreateRequest.php.stub',
 //            'REQUEST_UPDATE' => 'app/Console/Commands/EntityStub/Backend/UpdateRequest.php.stub',
-            'ROUTER'     => 'app/Console/Commands/EntityStub/Backend/router.php.stub',
+            'ROUTER' => 'app/Console/Commands/EntityStub/Backend/router.php.stub',
         ],
-        'BACKEND_DES'  => [
+        'BACKEND_DES' => [
             'CONTROLLER' => 'app/Http/Controllers/Api/Api_PLURAL_ENTITY_TITLE_Controller.php',
 //            'REQUEST_CREATE' => 'app/Http/Requests/Api/_ENTITY_TITLE_CreateRequest.php',
 //            'REQUEST_UPDATE' => 'app/Http/Requests/Api/_ENTITY_TITLE_UpdateRequest.php',
-            'ROUTER'     => 'routes/resources/_PLURAL_ENTITY_.php',
+            'ROUTER' => 'routes/resources/_PLURAL_ENTITY_.php',
         ],
-        'FRONTEND'     => [
-            'PAGE_CREATE'  => 'app/Console/Commands/EntityStub/Frontend/Page/Create.vue.stub',
-            'PAGE_DELETE'  => 'app/Console/Commands/EntityStub/Frontend/Page/Delete.vue.stub',
-            'PAGE_DETAIL'  => 'app/Console/Commands/EntityStub/Frontend/Page/Detail.vue.stub',
-            'PAGE_INDEX'   => 'app/Console/Commands/EntityStub/Frontend/Page/index.vue.stub',
-            'PAGE_MIXIN'   => 'app/Console/Commands/EntityStub/Frontend/Page/indexMixin.js.stub',
-            'PAGE_UPDATE'  => 'app/Console/Commands/EntityStub/Frontend/Page/Update.vue.stub',
-            'PAGE_IMPORT'  => 'app/Console/Commands/EntityStub/Frontend/Page/Import.vue.stub',
+        'FRONTEND' => [
+            'PAGE_CREATE' => 'app/Console/Commands/EntityStub/Frontend/Page/Create.vue.stub',
+            'PAGE_DELETE' => 'app/Console/Commands/EntityStub/Frontend/Page/Delete.vue.stub',
+            'PAGE_DETAIL' => 'app/Console/Commands/EntityStub/Frontend/Page/Detail.vue.stub',
+            'PAGE_INDEX' => 'app/Console/Commands/EntityStub/Frontend/Page/index.vue.stub',
+            'PAGE_MIXIN' => 'app/Console/Commands/EntityStub/Frontend/Page/indexMixin.js.stub',
+            'PAGE_UPDATE' => 'app/Console/Commands/EntityStub/Frontend/Page/Update.vue.stub',
+            'PAGE_IMPORT' => 'app/Console/Commands/EntityStub/Frontend/Page/Import.vue.stub',
             'STORE_MODULE' => 'app/Console/Commands/EntityStub/Frontend/Store/module.js.stub',
             'STORE_SCHEMA' => 'app/Console/Commands/EntityStub/Frontend/Store/schema.js.stub',
-            'MENU'         => 'app/Console/Commands/EntityStub/Frontend/Menu/entity.js.stub',
-            'ROUTER'       => 'app/Console/Commands/EntityStub/Frontend/Router/entity.js.stub',
+            'MENU' => 'app/Console/Commands/EntityStub/Frontend/Menu/entity.js.stub',
+            'ROUTER' => 'app/Console/Commands/EntityStub/Frontend/Router/entity.js.stub',
         ],
         'FRONTEND_DES' => [
-            'PAGE_CREATE'  => 'frontend/src/admin/pages/Manage_PLURAL_ENTITY_TITLE_/Create.vue',
-            'PAGE_DELETE'  => 'frontend/src/admin/pages/Manage_PLURAL_ENTITY_TITLE_/Delete.vue',
-            'PAGE_DETAIL'  => 'frontend/src/admin/pages/Manage_PLURAL_ENTITY_TITLE_/Detail.vue',
-            'PAGE_INDEX'   => 'frontend/src/admin/pages/Manage_PLURAL_ENTITY_TITLE_/index.vue',
-            'PAGE_MIXIN'   => 'frontend/src/admin/pages/Manage_PLURAL_ENTITY_TITLE_/indexMixin.js',
-            'PAGE_UPDATE'  => 'frontend/src/admin/pages/Manage_PLURAL_ENTITY_TITLE_/Update.vue',
-            'PAGE_IMPORT'  => 'frontend/src/admin/pages/Manage_PLURAL_ENTITY_TITLE_/Import.vue',
+            'PAGE_CREATE' => 'frontend/src/admin/pages/Manage_PLURAL_ENTITY_TITLE_/Create.vue',
+            'PAGE_DELETE' => 'frontend/src/admin/pages/Manage_PLURAL_ENTITY_TITLE_/Delete.vue',
+            'PAGE_DETAIL' => 'frontend/src/admin/pages/Manage_PLURAL_ENTITY_TITLE_/Detail.vue',
+            'PAGE_INDEX' => 'frontend/src/admin/pages/Manage_PLURAL_ENTITY_TITLE_/index.vue',
+            'PAGE_MIXIN' => 'frontend/src/admin/pages/Manage_PLURAL_ENTITY_TITLE_/indexMixin.js',
+            'PAGE_UPDATE' => 'frontend/src/admin/pages/Manage_PLURAL_ENTITY_TITLE_/Update.vue',
+            'PAGE_IMPORT' => 'frontend/src/admin/pages/Manage_PLURAL_ENTITY_TITLE_/Import.vue',
             'STORE_MODULE' => 'frontend/src/store/modules/_ENTITY_.js',
             'STORE_SCHEMA' => 'frontend/src/store/modules/schemas/_ENTITY_.schema.js',
-            'MENU'         => 'frontend/src/admin/menu/resources/_ENTITY_.js',
-            'ROUTER'       => 'frontend/src/admin/router/modules/resources/_ENTITY_.js',
+            'MENU' => 'frontend/src/admin/menu/resources/_ENTITY_.js',
+            'ROUTER' => 'frontend/src/admin/router/modules/resources/_ENTITY_.js',
         ],
 
     ];
@@ -87,14 +87,14 @@ class InitEntity extends Command
         $validate = $this->validateResource();
         if (!$validate) return false;
         $entityName = strtolower($this->argument('entityName'));
-        echo 'Entity name: ' . $entityName . "\n";
+        $this->line('Entity name: ' . $entityName);
 
         //run command to build entity
         $this->editEntity($entityName);
         $this->buildStructure($entityName);
         //migrate scopes
         Artisan::command('command:migrate-scopes', function () {
-            echo 'Finished';
+            $this->line('Finished');
         });
     }
 
@@ -105,12 +105,12 @@ class InitEntity extends Command
         $resourceImportStrStart = '//------resources import------';
         $resourceImportStrEnd = '//------end resources import------';
         if (strpos($frontendStoreContent, $resourceImportStrStart) === false) {
-            echo 'Can not found the position of ' . $resourceImportStrStart . ' in file ' . $frontendStoreFile;
+            $this->line('Can not found the position of ' . $resourceImportStrStart . ' in file ' . $frontendStoreFile);
             return false;
         }
 
         if (strpos($frontendStoreContent, $resourceImportStrEnd) === false) {
-            echo 'Can not found the position of ' . $resourceImportStrEnd . ' in file ' . $frontendStoreFile;
+            $this->line('Can not found the position of ' . $resourceImportStrEnd . ' in file ' . $frontendStoreFile);
             return false;
         }*/
         return true;
@@ -211,7 +211,7 @@ class InitEntity extends Command
     {
         $validate = $this->validateResource();
         if (!$validate) return false;
-        echo 'Entity name: ' . $entityName . "\n";
+        $this->line('Entity name: ' . $entityName);
         $entityNameTitle = str_replace('_', '', ucwords($entityName, '_'));
         $pluralEntityName = Str::plural($entityName);
         $pluralEntityNameTitle = str_replace('_', '', ucwords($pluralEntityName, '_'));
@@ -219,7 +219,7 @@ class InitEntity extends Command
 
         $class = 'App\\Entities\\' . $entityNameTitle;
         if (!class_exists($class)) {
-            echo 'Class App\\Entities\\' . $entityNameTitle . ' not found';
+            $this->line('Class App\\Entities\\' . $entityNameTitle . ' not found');
             return 0;
         }
         $entity = new $class();
@@ -229,6 +229,7 @@ class InitEntity extends Command
         $entityUiSearch = "\r\n";
         $entityParamsSearch = "\r\n";
         $entityTblHeaders = "\r\n";
+        $entityFieldsDetail = "\r\n";
         foreach ($fillable as $attributeName) {
             if (strlen(trim($attributeName)) < 1) continue;
             $attributeTitleName = str_replace('_', '', ucwords($attributeName, '_'));
@@ -237,6 +238,14 @@ class InitEntity extends Command
           text: '" . $attributeTitleName . "',
           value: '" . $attributeName . "',
         }," . "\r\n";
+            $entityFieldsDetail .= '    <v-row>
+      <v-col cols="3">
+        <v-card-text>' . $attributeTitleName . '</v-card-text>
+      </v-col>
+      <v-col cols="9">
+        <v-card-text>{{ item.' . $attributeName . ' }}</v-card-text>
+      </v-col>
+    </v-row>' . "\r\n";
         }
         foreach ($this->listSearchableFields as $attributeName => $searchType) {
             if (strlen(trim($attributeName)) < 1) continue;
@@ -249,28 +258,29 @@ class InitEntity extends Command
         }," . "\r\n";
         }
         $arrListReplace = [
-            '_ENTITY_FIELDS_INPUT_'      => $entityFieldsInput,
-            '_ENTITY_UI_SEARCH_'         => $entityUiSearch,
-            '_ENTITY_PARAMS_SEARCH_'     => $entityParamsSearch,
-            '_ENTITY_TBL_HEADERS_'       => $entityTblHeaders,
+            '_ENTITY_FIELDS_INPUT_' => $entityFieldsInput,
+            '_ENTITY_UI_SEARCH_' => $entityUiSearch,
+            '_ENTITY_PARAMS_SEARCH_' => $entityParamsSearch,
+            '_ENTITY_TBL_HEADERS_' => $entityTblHeaders,
+            '_ENTITY_FIELDS_DETAIL_' => $entityFieldsDetail,
             '_PLURAL_ENTITY_TITLE_TEXT_' => $pluralEntityNameTitleText,
-            '_PLURAL_ENTITY_TITLE_'      => $pluralEntityNameTitle,
-            '_PLURAL_ENTITY_SLUG_'       => str_replace('_', '-', $pluralEntityName),
-            '_PLURAL_ENTITY_'            => $pluralEntityName,
-            '_ENTITY_TITLE_'             => $entityNameTitle,
-            '_ENTITY_'                   => $entityName,
+            '_PLURAL_ENTITY_TITLE_' => $pluralEntityNameTitle,
+            '_PLURAL_ENTITY_SLUG_' => str_replace('_', '-', $pluralEntityName),
+            '_PLURAL_ENTITY_' => $pluralEntityName,
+            '_ENTITY_TITLE_' => $entityNameTitle,
+            '_ENTITY_' => $entityName,
         ];
         /* back-end */
 
         foreach (self::FILE_LIST['BACKEND'] as $key => $sourcePath) {
             $desPath = $this->buildDesPath(self::FILE_LIST['BACKEND_DES'][$key], $arrListReplace);
-            echo 'Generating ' . $desPath . "\n";
+            $this->line('Generating ' . $desPath);
             $this->genFile($sourcePath, $desPath, $arrListReplace);
         }
 
         foreach (self::FILE_LIST['FRONTEND'] as $key => $sourcePath) {
             $desPath = $this->buildDesPath(self::FILE_LIST['FRONTEND_DES'][$key], $arrListReplace);
-            echo 'Generating ' . $desPath . "\n";
+            $this->line('Generating ' . $desPath);
             $this->genFile($sourcePath, $desPath, $arrListReplace);
         }
     }

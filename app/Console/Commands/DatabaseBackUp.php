@@ -49,16 +49,17 @@ class DatabaseBackUp extends Command
         $output = null;
         try {
             exec($command, $output, $returnVar);
-            echo $output;
-            echo $returnVar;
+            $this->line($output);
+            $this->line($returnVar);
             if ($returnVar == 0) {
                 //delete old file
                 $last7Days = date("Y-m-d", strtotime("$today -7 day"));
-                $fileLast7Day = storage_path("app/backup/") . $last7Days . ".gz";
+                $fileLast7Day = storage_path("app/backup/") . "backup-" . $last7Days . ".gz";
                 if (file_exists($fileLast7Day)) unlink($fileLast7Day);
             }
         } catch (Exception $e) {
-            print_r($e);
+            $this->line($e->getMessage());
+            $this->line($e->getTraceAsString());
         }
     }
 }

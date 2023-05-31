@@ -88,9 +88,14 @@ class ApiBaseController extends Controller
     public function index(Request $request)
     {
         $limit = $request->input('limit', config('repository.pagination.limit', 15));
-        if ($limit == -1) return $this->repository->all();
-        $result = $this->repository->paginate($limit);
+        $result = $this->search($limit);
         return ResponseBuilder::SuccessGet($result);
+    }
+
+    protected function search($limit)
+    {
+        if ($limit == -1) return $this->repository->all();
+        return $this->repository->paginate($limit);
     }
 
     /**
@@ -122,7 +127,7 @@ class ApiBaseController extends Controller
         try {
             $this->validator->with($input)->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            $item = $this->repository->create($input);
+            $item = $this->createItem($input);
 
             return ResponseBuilder::SuccessCreate($item);
 
@@ -131,6 +136,11 @@ class ApiBaseController extends Controller
             throw new ApiException($e->getMessageBag());
 
         }
+    }
+
+    protected function createItem($input)
+    {
+        return $this->repository->create($input);
     }
 
     /**
@@ -142,11 +152,16 @@ class ApiBaseController extends Controller
     public function show($id)
     {
         try {
-            $item = $this->repository->find($id);
+            $item = $this->getItem($id);
         } catch (Exception $e) {
             throw new ApiException(__('data.get.ng'));
         }
         return ResponseBuilder::SuccessGet($item);
+    }
+
+    protected function getItem($id)
+    {
+        return $this->repository->find($id);
     }
 
     /**
@@ -176,12 +191,17 @@ class ApiBaseController extends Controller
         try {
             $this->validator->with($input)->passesOrFail(ValidatorInterface::RULE_UPDATE);
             unset($input['id']);
-            $item = $this->repository->update($input, $id);
+            $item = $this->updateItem($input, $id);
             return ResponseBuilder::SuccessUpdate($item);
 
         } catch (ValidatorException $e) {
             throw new ApiException($e->getMessageBag());
         }
+    }
+
+    protected function updateItem($input, $id)
+    {
+        return $this->repository->update($input, $id);
     }
 
     /**
@@ -196,13 +216,18 @@ class ApiBaseController extends Controller
         else $ids = [$id];
         try {
             DB::beginTransaction();
-            foreach ($ids as $id) if (!$this->repository->delete($id)) throw new Exception('Delete failed with id: ' . $id);
+            foreach ($ids as $id) if (!$this->deleteItem($id)) throw new Exception('Delete failed with id: ' . $id);
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
             throw new ApiException($e->getMessage());
         }
         return ResponseBuilder::SuccessDelete();
+    }
+
+    protected function deleteItem($id)
+    {
+        return $this->repository->delete($id);
     }
 
     /**
@@ -212,7 +237,8 @@ class ApiBaseController extends Controller
     {
         try {
             $file = $request->file('import_file');
-            $result = Excel::import(new DefaultImport($this->repository), $file);
+            $importer = $this->importer();
+            $result = Excel::import(new $importer($this->repository), $file);
         } catch (ValidationException $e) {
             $failures = $e->failures();
             $message = '';
@@ -222,20 +248,31 @@ class ApiBaseController extends Controller
         return ResponseBuilder::success($result, 'Import successfully');
     }
 
+    protected function importer()
+    {
+        return DefaultImport::class;
+    }
+
     public function export(Request $request)
     {
-        $export = new DefaultExport($this->repository);
+        $exporter = $this->exporter();
+        $export = new $exporter($this->repository);
         $exportType = $request->input('type', 'xlsx');
         $availableExportTypeArr = [
             'xlsx' => \Maatwebsite\Excel\Excel::XLSX,
-            'csv'  => \Maatwebsite\Excel\Excel::CSV,
-            'xls'  => \Maatwebsite\Excel\Excel::XLS,
-            'xml'  => \Maatwebsite\Excel\Excel::XML,
+            'csv' => \Maatwebsite\Excel\Excel::CSV,
+            'xls' => \Maatwebsite\Excel\Excel::XLS,
+            'xml' => \Maatwebsite\Excel\Excel::XML,
             'html' => \Maatwebsite\Excel\Excel::HTML,
-            'ods'  => \Maatwebsite\Excel\Excel::ODS,
+            'ods' => \Maatwebsite\Excel\Excel::ODS,
         ];
         if (!isset($availableExportTypeArr[$exportType])) $exportType = 'xlsx';
         $table = $this->repository->getModel()->getTable();
         return Excel::download($export, 'export_' . $table . '.' . $exportType, $availableExportTypeArr[$exportType]);
+    }
+
+    protected function exporter()
+    {
+        return DefaultExport::class;
     }
 }

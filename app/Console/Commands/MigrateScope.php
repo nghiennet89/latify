@@ -65,9 +65,9 @@ class MigrateScope extends Command
                 //add scope to DB
                 $scopeGroup = explode('-', $scope)[0];
                 $newScope = [
-                    'name'       => $scope,
-                    'title'      => str_replace('-', ' ', $scope),
-                    'group'      => $scopeGroup,
+                    'name' => $scope,
+                    'title' => str_replace('-', ' ', $scope),
+                    'group' => $scopeGroup,
                     'created_at' => date('Y-m-d H:i:s'),
                     'updated_at' => date('Y-m-d H:i:s'),
                 ];
@@ -89,19 +89,19 @@ class MigrateScope extends Command
             foreach ($allExistingScopes as $existingScope)
                 if (!in_array($existingScope['name'], $existingAdminScopes)) {
                     array_push($scopesToAssign, [
-                        'role_id'    => Constants::ROLES['ADMIN'],
-                        'scope_id'   => $existingScope['id'],
+                        'role_id' => Constants::ROLES['ADMIN'],
+                        'scope_id' => $existingScope['id'],
                         'created_at' => date('Y-m-d H:i:s'),
                         'updated_at' => date('Y-m-d H:i:s'),
                     ]);
-                    echo 'new scope to assign: ' . $existingScope['name'] . "\n";
+                    $this->line('new scope to assign: ' . $existingScope['name']);
                 }
             if (count($scopesToAssign)) RoleScopes::query()->insert($scopesToAssign);
             DB::commit();
-            echo 'Completed' . "\n";
+            $this->line('Completed');
         } catch (Exception $e) {
             DB::rollBack();
-            echo 'Fail';
+            $this->line('Fail');
         }
     }
 }

@@ -150,7 +150,7 @@ class ApiUsersController extends ApiBaseController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function addRole(UserAddRoleRequest $request, UserRepository $userRepository)
+    public function addRole(UserAddRoleRequest $request, UserRepository $userRepository): JsonResponse
     {
         $email = $request->user_email;
         $userId = $request->user_id;
@@ -166,21 +166,18 @@ class ApiUsersController extends ApiBaseController
     }
 
     /**
-     * @param Request $request
+     * @param         $input
      * @param         $id
      *
      * @return JsonResponse
-     * @throws \App\Exceptions\ApiException
      */
-    public function update(Request $request, $id)
+    public function updateItem($input, $id)
     {
-        $password = $request->input('password', null);
+        $password = data_get($input, 'password');
         if ($password !== null) {
-            $hashPassword = Hash::make($password);
-            if ($request->request->get('password') === $password) $request->request->set('password', $hashPassword);
-            else if ($request->query->get('password') === $password) $request->query->set('password', $hashPassword);
+            $input['password'] = Hash::make($password);
         }
-        return parent::update($request, $id);
+        return $this->repository->update($input, $id);
     }
 
     /**
@@ -188,7 +185,7 @@ class ApiUsersController extends ApiBaseController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function createApiKey(Request $request)
+    public function createApiKey(Request $request): JsonResponse
     {
         $user = Auth::user();
         if ($user->api_key) {
