@@ -6,11 +6,11 @@ use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
 /**
- * Class RoleScopes.
+ * Class RoleScope.
  *
  * @package namespace App\Entities;
  */
-class RoleScopes extends BaseEntity implements Transformable
+class RoleScope extends BaseEntity implements Transformable
 {
     use TransformableTrait;
 

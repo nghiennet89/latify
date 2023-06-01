@@ -5,7 +5,7 @@ namespace App\Repositories;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
- * Interface RoleScopesRepository.
+ * Interface RoleScopeRepository.
  *
  * @package namespace App\Repositories;
  */
